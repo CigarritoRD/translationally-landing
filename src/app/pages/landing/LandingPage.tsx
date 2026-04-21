@@ -488,10 +488,6 @@ export default function TranslationallyLandingPage() {
             transition={{ duration: 0.6 }}
             className="max-w-3xl"
           >
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/8 bg-white/4 px-4 py-2 text-sm text-white/75 shadow-lg backdrop-blur-md">
-              <Sparkles className="h-4 w-4 text-[#ff7a7c]" />
-              {t.hero.badge}
-            </div>
 
             <h1 className="max-w-3xl text-3xl font-semibold leading-[1.05] tracking-tight sm:text-4xl lg:text-5xl xl:text-[4.2rem]">
               {t.hero.before}{" "}
