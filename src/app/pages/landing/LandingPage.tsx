@@ -25,7 +25,7 @@ const logoUrl =
   "https://translationally-five.vercel.app/assets/logo-DsmuveuX.png"
 
 const whatsappUrl = "https://wa.me/18090000000"
-const emailAddress = "hello@translationally.com"
+const emailAddress = "Info@translationally.n"
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -70,14 +70,14 @@ const founders = [
   {
     name: "Katerine Mota",
     role: {
-      es: "CEO · Co-fundadora",
-      en: "CEO · Co-founder",
+      es: "Co-fundadora · Gerente de Personal y Producción",
+      en: "Co-founder · Staff and production manager",
     },
     bio: {
       es: "Katerine Mota, nacida en Bonao, dedicó su vida al servicio del Señor desde temprana edad. Descubrió su pasión por la traducción a los 13 años, lo que la llevó a formarse como Licenciada en Lenguas Modernas y a completar un diplomado en Traducción Jurídica. Ha trabajado como traductora y editora para organizaciones como Hope International y Southern Baptist School Seminary, y actualmente también sirve como speaker de Compassion International. En TranslationAlly lidera la logística, el staff y la producción con enfoque en calidad, estructura y servicio.",
       en: "Katerine Mota, born in Bonao, dedicated her life to serving the Lord from an early age. She discovered her passion for translation at the age of 13, which led her to earn a degree in Modern Languages and complete a diploma in Legal Translation. She has worked as a translator and editor for organizations such as Hope International and Southern Baptist School Seminary, and she currently also serves as a speaker for Compassion International. At TranslationAlly, she leads logistics, staff, and production with a strong focus on quality, structure, and service.",
     },
-    image1: "https://i.imgur.com/KHVZpVu.jpeg",
+    image1: "https://i.imgur.com/yQrmbsF.jpeg",
     image2: "https://i.imgur.com/34cq8os.jpeg",
     objectPosition: "object-[center_18%]",
   },
@@ -91,15 +91,15 @@ const founders = [
       es: "Lea Peguero proviene de una familia con fuerte enfoque misional y reside en Santo Domingo. Entregó su vida a Cristo a los seis años y comenzó a servir en el ministerio desde los once. Es licenciada en Publicidad y Comunicación por la Universidad APEC y posee una maestría en Dirección de Marketing por la Universidad Nebrija en Madrid, España. También comparte su experiencia como profesora adjunta en CETYS Universidad en México. Ha servido con organizaciones como YWAM, Compassion International, Food for the Hungry y YouVersion. En TranslationAlly lidera las relaciones externas y el desarrollo de alianzas estratégicas con excelencia, propósito y corazón.",
       en: "Lea Peguero comes from a mission-driven family and lives in Santo Domingo. She gave her life to Christ at the age of six and began serving in ministry at eleven. She holds a bachelor’s degree in Advertising and Communication from APEC University and a master’s degree in Marketing Direction from Nebrija University in Madrid, Spain. She also serves as an adjunct professor at CETYS University in Mexico. Lea has worked with organizations such as YWAM, Compassion International, Food for the Hungry, and YouVersion. At TranslationAlly, she leads external relationships and strategic partnerships with excellence, purpose, and heart.",
     },
-    image1: "https://i.imgur.com/2tefZ5f.jpeg",
+    image1: "https://i.imgur.com/QAF60tx.jpeg",
     image2: "https://i.imgur.com/GYiNvqQ.jpeg",
     objectPosition: "object-[center_18%]",
   },
   {
     name: "Zoila Luciano",
     role: {
-      es: "Gerente de Finanzas · Co-fundadora",
-      en: "Finance Manager · Co-founder",
+      es: "Co-fundadora · Gerente de Finanzas",
+      en: "Co-founder · Finance Manager",
     },
     bio: {
       es: "Zoila Luciano es esposa de pastor, madre de tres hijos y una profesional con vasta experiencia en servicio, liderazgo y administración. Posee una licenciatura en Contabilidad, una maestría en Mercadeo y estudios avanzados en teología, culminando una maestría en Estudios Teológicos y Consejería Familiar. Trabajó por varios años en Banreservas, fue administradora de una empresa privada y dirigió por más de 12 años un Centro de Compassion, liderando proyectos de desarrollo social y campamentos para distintas edades. En TranslationAlly lidera el área financiera con una visión de orden, servicio y excelencia.",
@@ -190,7 +190,7 @@ const content = {
     services: {
       eyebrow: "Servicios",
       title:
-        "Soluciones lingüísticas pensadas para organizaciones, equipos y proyectos multiculturales",
+        "Soluciones lingüísticas y logísticas pensadas para organizaciones, equipos y proyectos multiculturales",
       description:
         "Disponemos de una red de proveedores altamente calificados y con experiencia comprobada. Esto nos permite ofrecer servicios de calidad en varios idiomas, incluyendo inglés, español, francés y criollo, entre otros.",
       items: [
@@ -329,7 +329,7 @@ const content = {
     services: {
       eyebrow: "Services",
       title:
-        "Language solutions for organizations, teams, and multicultural projects",
+        "Language and logistics solutions for organizations, teams, and multicultural projects.",
       description:
         "We work with a network of highly qualified providers with proven experience, allowing us to offer quality services in multiple languages, including English, Spanish, French, and Haitian Creole, among others.",
       items: [
