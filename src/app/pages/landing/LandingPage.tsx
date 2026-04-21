@@ -1,0 +1,1044 @@
+import React, { useEffect, useMemo, useState } from "react"
+import { AnimatePresence, motion } from "framer-motion"
+import {
+  ArrowRight,
+  CheckCircle2,
+  Languages,
+  Mail,
+  MessageCircle,
+  ShieldCheck,
+  Sparkles,
+  Users2,
+  FileText,
+  Building2,
+  BadgeCheck,
+  Clock3,
+} from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+
+type Locale = "es" | "en"
+
+const logoUrl =
+  "https://translationally-five.vercel.app/assets/logo-DsmuveuX.png"
+
+const whatsappUrl = "https://wa.me/18090000000"
+const emailAddress = "hello@translationally.com"
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0 },
+}
+
+function AccentLine() {
+  return (
+    <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-[#ef4d4f] via-[#ff7a7c] to-transparent opacity-90" />
+  )
+}
+
+function FounderImage({
+  src,
+  alt,
+  fallback,
+  objectPosition = "object-center",
+}: {
+  src: string
+  alt: string
+  fallback: string
+  objectPosition?: string
+}) {
+  if (src) {
+    return (
+      <img
+        src={src}
+        alt={alt}
+        className={`h-full w-full object-cover ${objectPosition}`}
+      />
+    )
+  }
+
+  return (
+    <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(135deg,rgba(239,77,79,0.18),rgba(255,255,255,0.04))] text-3xl font-semibold text-white">
+      {fallback}
+    </div>
+  )
+}
+
+const founders = [
+  {
+    name: "Katerine Mota",
+    role: {
+      es: "CEO · Co-fundadora",
+      en: "CEO · Co-founder",
+    },
+    bio: {
+      es: "Katerine Mota, nacida en Bonao, dedicó su vida al servicio del Señor desde temprana edad. Descubrió su pasión por la traducción a los 13 años, lo que la llevó a formarse como Licenciada en Lenguas Modernas y a completar un diplomado en Traducción Jurídica. Ha trabajado como traductora y editora para organizaciones como Hope International y Southern Baptist School Seminary, y actualmente también sirve como speaker de Compassion International. En TranslationAlly lidera la logística, el staff y la producción con enfoque en calidad, estructura y servicio.",
+      en: "Katerine Mota, born in Bonao, dedicated her life to serving the Lord from an early age. She discovered her passion for translation at the age of 13, which led her to earn a degree in Modern Languages and complete a diploma in Legal Translation. She has worked as a translator and editor for organizations such as Hope International and Southern Baptist School Seminary, and she currently also serves as a speaker for Compassion International. At TranslationAlly, she leads logistics, staff, and production with a strong focus on quality, structure, and service.",
+    },
+    image1: "https://i.imgur.com/KHVZpVu.jpeg",
+    image2: "https://i.imgur.com/34cq8os.jpeg",
+    objectPosition: "object-[center_18%]",
+  },
+  {
+    name: "Lea Peguero",
+    role: {
+      es: "Co-fundadora · Gerente de Relaciones Externas",
+      en: "Co-founder · External Relationship Manager",
+    },
+    bio: {
+      es: "Lea Peguero proviene de una familia con fuerte enfoque misional y reside en Santo Domingo. Entregó su vida a Cristo a los seis años y comenzó a servir en el ministerio desde los once. Es licenciada en Publicidad y Comunicación por la Universidad APEC y posee una maestría en Dirección de Marketing por la Universidad Nebrija en Madrid, España. También comparte su experiencia como profesora adjunta en CETYS Universidad en México. Ha servido con organizaciones como YWAM, Compassion International, Food for the Hungry y YouVersion. En TranslationAlly lidera las relaciones externas y el desarrollo de alianzas estratégicas con excelencia, propósito y corazón.",
+      en: "Lea Peguero comes from a mission-driven family and lives in Santo Domingo. She gave her life to Christ at the age of six and began serving in ministry at eleven. She holds a bachelor’s degree in Advertising and Communication from APEC University and a master’s degree in Marketing Direction from Nebrija University in Madrid, Spain. She also serves as an adjunct professor at CETYS University in Mexico. Lea has worked with organizations such as YWAM, Compassion International, Food for the Hungry, and YouVersion. At TranslationAlly, she leads external relationships and strategic partnerships with excellence, purpose, and heart.",
+    },
+    image1: "https://i.imgur.com/2tefZ5f.jpeg",
+    image2: "https://i.imgur.com/GYiNvqQ.jpeg",
+    objectPosition: "object-[center_18%]",
+  },
+  {
+    name: "Zoila Luciano",
+    role: {
+      es: "Gerente de Finanzas · Co-fundadora",
+      en: "Finance Manager · Co-founder",
+    },
+    bio: {
+      es: "Zoila Luciano es esposa de pastor, madre de tres hijos y una profesional con vasta experiencia en servicio, liderazgo y administración. Posee una licenciatura en Contabilidad, una maestría en Mercadeo y estudios avanzados en teología, culminando una maestría en Estudios Teológicos y Consejería Familiar. Trabajó por varios años en Banreservas, fue administradora de una empresa privada y dirigió por más de 12 años un Centro de Compassion, liderando proyectos de desarrollo social y campamentos para distintas edades. En TranslationAlly lidera el área financiera con una visión de orden, servicio y excelencia.",
+      en: "Zoila Luciano is a pastor’s wife, mother of three, and a professional with extensive experience in service, leadership, and administration. She holds a degree in Accounting, a master’s in Marketing, and advanced theological studies, including a master’s in Theological Studies and Family Counseling. She worked for several years at Banreservas, served as administrator of a private company, and directed a Compassion center for more than 12 years, leading social development projects and camps for different age groups. At TranslationAlly, she leads the finance area with a strong vision for order, service, and excellence.",
+    },
+    image1: "https://i.imgur.com/zpIRGBH.jpeg",
+    image2: "https://i.imgur.com/n1gMYT5.jpeg",
+    objectPosition: "object-[center_20%]",
+  },
+] as const
+
+const content = {
+  es: {
+    nav: {
+      about: "Quiénes somos",
+      services: "Servicios",
+      founders: "Fundadoras",
+      contact: "Contacto",
+      platform: "Entrar a la plataforma",
+      request: "Solicitar servicios",
+    },
+    hero: {
+      badge: "Servicios lingüísticos con una experiencia moderna y confiable",
+      before: "Traducción profesional con una experiencia",
+      rotating: ["clara", "precisa", "confiable", "humana"],
+      after: ".",
+      description:
+        "Somos una empresa orientada a ofrecer servicios de alta calidad a una amplia variedad de públicos, con especial enfoque en organizaciones sin fines de lucro. Brindamos soluciones profesionales, puntuales, eficaces y asequibles, diseñadas para responder a las necesidades específicas de cada cliente.",
+      primaryCta: "Contratar servicios",
+      secondaryCta: "Ir a la plataforma de traducción",
+      stats: [
+        { label: "Enfoque", value: "Calidad" },
+        { label: "Proceso", value: "Ordenado" },
+        { label: "Atención", value: "Humana" },
+        { label: "Entrega", value: "Confiable" },
+      ],
+      panelTitle: "Socio lingüístico confiable",
+      panelBadge: "Flujo moderno",
+      panelItems: [
+        {
+          icon: BadgeCheck,
+          title: "Procesos estructurados",
+          text: "Organización clara desde la recepción hasta la entrega del trabajo.",
+        },
+        {
+          icon: Clock3,
+          title: "Compromiso con tiempos",
+          text: "Coordinación eficiente para responder con agilidad y consistencia.",
+        },
+        {
+          icon: Users2,
+          title: "Equipo humano",
+          text: "Una marca construida por personas comprometidas con la excelencia.",
+        },
+      ],
+    },
+    about: {
+      eyebrow: "Quiénes somos",
+      title: "Una empresa construida con visión, experiencia y servicio",
+      description:
+        "Somos una empresa orientada a ofrecer servicios de alta calidad a una amplia variedad de públicos. Nos especializamos particularmente en organizaciones sin fines de lucro, brindando soluciones profesionales y puntuales. Nos comprometemos a ofrecer un servicio eficaz y asequible, diseñado para satisfacer las necesidades específicas de nuestros clientes.",
+      values: [
+        "Servicio eficaz y asequible",
+        "Experiencia sólida en el sector",
+        "Compromiso con calidad y puntualidad",
+        "Atención profesional para públicos diversos",
+      ],
+      mission: "Misión",
+      missionText:
+        "Brindar soluciones lingüísticas confiables, profesionales y puntuales para organizaciones, equipos y proyectos que necesitan calidad, claridad y sensibilidad cultural en cada entrega.",
+      vision: "Visión",
+      visionText:
+        "Consolidarnos como un aliado lingüístico de referencia por nuestra excelencia operativa, experiencia acumulada y compromiso humano con el servicio.",
+    },
+    story: {
+      eyebrow: "Visión y experiencia",
+      title: "TranslationAlly es el resultado de años de preparación y esfuerzo",
+      description:
+        "TranslationAlly no es una idea nueva, sino el resultado de años de trabajo para convertir una visión en una realidad tangible. A lo largo de ese proceso, hemos desarrollado un enfoque sólido y efectivo, respaldado por una profunda experiencia en el sector.",
+    },
+    executive: {
+      eyebrow: "Equipo ejecutivo",
+      title:
+        "Liderazgo con experiencia en gestión, servicio y colaboración con ONGs",
+      description:
+        "Nuestro comité ejecutivo está compuesto por profesionales altamente experimentados y capacitados. Contamos con líderes con vasta experiencia en la gestión de equipos y en la colaboración con organizaciones no gubernamentales, lo que nos permite ofrecer soluciones ajustadas a las necesidades del sector sin fines de lucro.",
+    },
+    services: {
+      eyebrow: "Servicios",
+      title:
+        "Soluciones lingüísticas pensadas para organizaciones, equipos y proyectos multiculturales",
+      description:
+        "Disponemos de una red de proveedores altamente calificados y con experiencia comprobada. Esto nos permite ofrecer servicios de calidad en varios idiomas, incluyendo inglés, español, francés y criollo, entre otros.",
+      items: [
+        {
+          icon: Languages,
+          title: "Traducción profesional",
+          text: "Traducciones precisas, claras y consistentes para distintos tipos de contenido y necesidades institucionales.",
+        },
+        {
+          icon: FileText,
+          title: "Gestión documental",
+          text: "Procesos organizados para alto volumen, trazabilidad y control de calidad en cada entrega.",
+        },
+        {
+          icon: ShieldCheck,
+          title: "Control de calidad",
+          text: "Revisión cuidadosa, criterios consistentes y seguimiento interno para asegurar resultados confiables.",
+        },
+        {
+          icon: Building2,
+          title: "Soporte para organizaciones",
+          text: "Acompañamiento lingüístico para ONGs, instituciones, equipos y operaciones continuas.",
+        },
+      ],
+    },
+    founders: {
+      eyebrow: "Fundadoras",
+      title: "El liderazgo detrás de TranslationAlly",
+      description:
+        "Conoce a las mujeres que dan dirección, estructura y visión al crecimiento de la empresa.",
+    },
+    platform: {
+      eyebrow: "Plataforma interna",
+      title: "¿Eres parte del equipo de traducción?",
+      description:
+        "Accede directamente a la plataforma interna de TranslationAlly para gestionar trabajo, seguimiento y flujo operativo.",
+      cta: "Entrar a la plataforma",
+    },
+    contact: {
+      eyebrow: "Contacto",
+      title: "Conversemos sobre tu proyecto",
+      description:
+        "Cuéntanos qué necesitas y te ayudaremos a encontrar la mejor forma de trabajar juntos.",
+      emailTitle: "Correo electrónico",
+      whatsappTitle: "WhatsApp",
+      whatsappText: "Contáctanos de forma rápida y directa",
+      formEyebrow: "Formulario",
+      formTitle: "Solicita información",
+      name: "Nombre",
+      email: "Correo electrónico",
+      company: "Empresa u organización",
+      message: "Cuéntanos qué servicio necesitas",
+      submit: "Enviar solicitud",
+      whatsappButton: "Escribir por WhatsApp",
+    },
+    footer: {
+      rights: "© 2026 TranslationAlly. Todos los derechos reservados.",
+      platform: "Plataforma",
+    },
+  },
+  en: {
+    nav: {
+      about: "About",
+      services: "Services",
+      founders: "Founders",
+      contact: "Contact",
+      platform: "Go to platform",
+      request: "Request services",
+    },
+    hero: {
+      badge: "Language services with a modern and trustworthy experience",
+      before: "Professional translation with a",
+      rotating: ["clear", "precise", "reliable", "human"],
+      after: " experience.",
+      description:
+        "We are a company committed to providing high-quality services to a wide range of audiences, with a special focus on nonprofit organizations. We deliver professional, timely, effective, and affordable solutions tailored to the specific needs of each client.",
+      primaryCta: "Hire our services",
+      secondaryCta: "Go to translation platform",
+      stats: [
+        { label: "Focus", value: "Quality" },
+        { label: "Process", value: "Structured" },
+        { label: "Care", value: "Human" },
+        { label: "Delivery", value: "Reliable" },
+      ],
+      panelTitle: "Trusted language partner",
+      panelBadge: "Modern workflow",
+      panelItems: [
+        {
+          icon: BadgeCheck,
+          title: "Structured processes",
+          text: "Clear organization from intake to final delivery.",
+        },
+        {
+          icon: Clock3,
+          title: "Commitment to timing",
+          text: "Efficient coordination to respond with agility and consistency.",
+        },
+        {
+          icon: Users2,
+          title: "Human team",
+          text: "A brand built by people committed to excellence.",
+        },
+      ],
+    },
+    about: {
+      eyebrow: "About us",
+      title: "A company built on vision, experience, and service",
+      description:
+        "We are a company committed to providing high-quality services to a wide range of audiences. We specialize particularly in nonprofit organizations, offering professional and timely solutions. We are committed to delivering effective and affordable service designed to meet the specific needs of our clients.",
+      values: [
+        "Effective and affordable service",
+        "Strong experience in the sector",
+        "Commitment to quality and punctuality",
+        "Professional support for diverse audiences",
+      ],
+      mission: "Mission",
+      missionText:
+        "To provide reliable, professional, and timely language solutions for organizations, teams, and projects that need quality, clarity, and cultural sensitivity in every delivery.",
+      vision: "Vision",
+      visionText:
+        "To become a trusted language partner recognized for operational excellence, accumulated experience, and a deeply human commitment to service.",
+    },
+    story: {
+      eyebrow: "Vision and experience",
+      title: "TranslationAlly is the result of years of preparation and effort",
+      description:
+        "TranslationAlly is not a new idea, but the result of years of work to turn a vision into a tangible reality. Throughout that process, we developed a solid and effective approach supported by deep experience in the field.",
+    },
+    executive: {
+      eyebrow: "Executive team",
+      title:
+        "Leadership with experience in management, service, and NGO collaboration",
+      description:
+        "Our executive committee is made up of highly experienced and skilled professionals. We bring together leaders with extensive experience in team management and collaboration with nonprofit organizations, allowing us to offer solutions that truly fit the sector’s needs.",
+    },
+    services: {
+      eyebrow: "Services",
+      title:
+        "Language solutions for organizations, teams, and multicultural projects",
+      description:
+        "We work with a network of highly qualified providers with proven experience, allowing us to offer quality services in multiple languages, including English, Spanish, French, and Haitian Creole, among others.",
+      items: [
+        {
+          icon: Languages,
+          title: "Professional translation",
+          text: "Accurate, clear, and consistent translations for different kinds of content and institutional needs.",
+        },
+        {
+          icon: FileText,
+          title: "Document management",
+          text: "Organized processes for high-volume work, traceability, and quality control in every delivery.",
+        },
+        {
+          icon: ShieldCheck,
+          title: "Quality control",
+          text: "Careful review, consistent criteria, and internal follow-up to ensure reliable results.",
+        },
+        {
+          icon: Building2,
+          title: "Support for organizations",
+          text: "Language support for NGOs, institutions, teams, and ongoing operations.",
+        },
+      ],
+    },
+    founders: {
+      eyebrow: "Founders",
+      title: "The leadership behind TranslationAlly",
+      description:
+        "Meet the women who bring direction, structure, and vision to the company’s growth.",
+    },
+    platform: {
+      eyebrow: "Internal platform",
+      title: "Are you part of the translation team?",
+      description:
+        "Access the internal TranslationAlly platform to manage work, follow-up, and operational flow.",
+      cta: "Go to platform",
+    },
+    contact: {
+      eyebrow: "Contact",
+      title: "Let’s talk about your project",
+      description:
+        "Tell us what you need and we will help you find the best way to work together.",
+      emailTitle: "Email",
+      whatsappTitle: "WhatsApp",
+      whatsappText: "Reach out quickly and directly",
+      formEyebrow: "Form",
+      formTitle: "Request information",
+      name: "Name",
+      email: "Email",
+      company: "Company or organization",
+      message: "Tell us what service you need",
+      submit: "Send request",
+      whatsappButton: "Message us on WhatsApp",
+    },
+    footer: {
+      rights: "© 2026 TranslationAlly. All rights reserved.",
+      platform: "Platform",
+    },
+  },
+} as const
+
+export default function TranslationallyLandingPage() {
+  const [locale, setLocale] = useState<Locale>("es")
+  const [wordIndex, setWordIndex] = useState(0)
+
+  const t = content[locale]
+  const rotatingWords = useMemo(() => t.hero.rotating, [t.hero.rotating])
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setWordIndex((prev) => (prev + 1) % rotatingWords.length)
+    }, 2200)
+
+    return () => window.clearInterval(interval)
+  }, [rotatingWords])
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setWordIndex(0)
+  }, [locale])
+
+  const localizedFounders = founders.map((founder) => ({
+    ...founder,
+    roleText: founder.role[locale],
+    bioText: founder.bio[locale],
+  }))
+
+  return (
+    <div className="min-h-screen overflow-x-hidden bg-[#071b2d] text-white">
+      <div className="fixed inset-0 -z-10 overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(239,77,79,0.16),transparent_34%),radial-gradient(circle_at_82%_18%,rgba(255,255,255,0.05),transparent_20%),linear-gradient(180deg,#071729_0%,#071b2d_48%,#06131f_100%)]" />
+        <div className="absolute left-[-8%] top-20 h-72 w-72 rounded-full bg-[#ef4d4f]/10 blur-3xl" />
+        <div className="absolute right-[-4%] top-48 h-96 w-96 rounded-full bg-white/5 blur-3xl" />
+        <div className="absolute left-[6%] top-[24%] h-40 w-40 animate-pulse rounded-full bg-[#ef4d4f]/8 blur-3xl" />
+        <div className="absolute right-[9%] top-[14%] h-48 w-48 animate-pulse rounded-full bg-[#ff7a7c]/8 blur-3xl [animation-delay:600ms]" />
+        <div className="absolute right-[12%] top-[52%] h-56 w-56 animate-pulse rounded-full bg-[#ef4d4f]/8 blur-3xl [animation-delay:1200ms]" />
+        <div className="absolute left-[8%] bottom-[12%] h-44 w-44 animate-pulse rounded-full bg-[#ff7a7c]/7 blur-3xl [animation-delay:1800ms]" />
+      </div>
+
+      <header className="sticky top-0 z-40 border-b border-white/6 bg-[#071b2d]/70 backdrop-blur-2xl">
+        <div className="mx-auto flex w-full max-w-[1400px] items-center justify-between px-5 py-4 lg:px-8">
+          <div className="flex items-center gap-3">
+            <img src={logoUrl} alt="TranslationAlly logo" className="h-11 w-auto" />
+          </div>
+
+          <nav className="hidden items-center gap-5 text-[15px] text-white/74 lg:flex">
+            <a href="#about" className="transition hover:text-white">
+              {t.nav.about}
+            </a>
+            <a href="#services" className="transition hover:text-white">
+              {t.nav.services}
+            </a>
+            <a href="#founders" className="transition hover:text-white">
+              {t.nav.founders}
+            </a>
+            <a href="#contact" className="transition hover:text-white">
+              {t.nav.contact}
+            </a>
+          </nav>
+
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setLocale((prev) => (prev === "es" ? "en" : "es"))}
+              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/4 px-3 py-2 text-sm text-white transition hover:bg-white/8"
+            >
+              <Languages className="h-4 w-4" />
+              {locale === "es" ? "EN" : "ES"}
+            </button>
+
+            <Button
+              asChild
+              variant="outline"
+              className="hidden rounded-full border-white/10 bg-white/4 text-white hover:bg-white/8 md:inline-flex"
+            >
+              <a href="/login">{t.nav.platform}</a>
+            </Button>
+
+            <Button
+              asChild
+              className="rounded-full border border-[#ef4d4f]/20 bg-[#ef4d4f] text-white shadow-[0_10px_30px_rgba(239,77,79,0.22)] hover:bg-[#e5484b]"
+            >
+              <a href="#contact">{t.nav.request}</a>
+            </Button>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section className="mx-auto grid w-full max-w-[1400px] items-center gap-12 px-5 py-20 lg:grid-cols-[1fr_0.95fr] lg:px-8 lg:py-28 xl:gap-16">
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={fadeUp}
+            transition={{ duration: 0.6 }}
+            className="max-w-3xl"
+          >
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/8 bg-white/4 px-4 py-2 text-sm text-white/75 shadow-lg backdrop-blur-md">
+              <Sparkles className="h-4 w-4 text-[#ff7a7c]" />
+              {t.hero.badge}
+            </div>
+
+            <h1 className="max-w-3xl text-3xl font-semibold leading-[1.05] tracking-tight sm:text-4xl lg:text-5xl xl:text-[4.2rem]">
+              {t.hero.before}{" "}
+              <span className="inline-block min-w-[185px] align-baseline text-[#ff7a7c] sm:min-w-[215px] lg:min-w-[260px]">
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={rotatingWords[wordIndex]}
+                    initial={{ opacity: 0, y: 12, filter: "blur(6px)" }}
+                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                    exit={{ opacity: 0, y: -10, filter: "blur(6px)" }}
+                    transition={{ duration: 0.35 }}
+                    className="inline-block"
+                  >
+                    {rotatingWords[wordIndex]}
+                  </motion.span>
+                </AnimatePresence>
+              </span>
+              {t.hero.after}
+            </h1>
+
+            <p className="mt-6 max-w-2xl text-base leading-8 text-white/68 lg:text-lg">
+              {t.hero.description}
+            </p>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Button
+                asChild
+                size="lg"
+                className="rounded-full border border-[#ef4d4f]/20 bg-[#ef4d4f] px-7 text-white shadow-[0_10px_30px_rgba(239,77,79,0.25)] hover:bg-[#e5484b]"
+              >
+                <a href="#contact">
+                  {t.hero.primaryCta}
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </a>
+              </Button>
+
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="rounded-full border-white/10 bg-white/4 px-7 text-white hover:bg-white/8"
+              >
+                <a href="/login">{t.hero.secondaryCta}</a>
+              </Button>
+            </div>
+
+            <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
+              {t.hero.stats.map((item, idx) => (
+                <motion.div
+                  key={item.label}
+                  initial={{ opacity: 0, y: 18 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.15 + idx * 0.08, duration: 0.5 }}
+                  className="relative overflow-hidden rounded-2xl border border-white/6 bg-white/4 p-4 backdrop-blur-md"
+                >
+                  <AccentLine />
+                  <p className="text-xs uppercase tracking-[0.18em] text-white/42">
+                    {item.label}
+                  </p>
+                  <p className="mt-2 text-lg font-semibold text-white lg:text-xl">
+                    {item.value}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.15 }}
+            className="relative"
+          >
+            <div className="absolute -left-6 -top-6 h-28 w-28 rounded-full bg-[#ef4d4f]/18 blur-3xl" />
+            <div className="absolute -bottom-6 right-0 h-28 w-28 rounded-full bg-white/7 blur-3xl" />
+
+            <Card className="relative overflow-hidden rounded-[28px] border-white/6 bg-white/[0.045] shadow-2xl backdrop-blur-xl">
+              <AccentLine />
+              <CardContent className="p-0">
+                <div className="border-b border-white/6 bg-[linear-gradient(135deg,rgba(239,77,79,0.14),rgba(255,255,255,0.03),rgba(255,255,255,0.015))] p-5 lg:p-6">
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <p className="text-sm uppercase tracking-[0.24em] text-white/42">
+                        TranslationAlly
+                      </p>
+                      <h2 className="mt-2 text-xl font-semibold lg:text-2xl">
+                        {t.hero.panelTitle}
+                      </h2>
+                    </div>
+                    <div className="rounded-full border border-white/8 bg-white/8 px-3 py-1 text-xs text-white/72">
+                      {t.hero.panelBadge}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid gap-4 p-5 lg:p-6">
+                  {t.hero.panelItems.map((item, idx) => {
+                    const Icon = item.icon
+                    return (
+                      <div
+                        key={item.title}
+                        className={`rounded-2xl border border-white/6 p-4 transition hover:border-white/10 hover:bg-white/[0.05] ${
+                          idx === 1
+                            ? "bg-[linear-gradient(135deg,rgba(255,255,255,0.02),rgba(239,77,79,0.035),rgba(255,255,255,0.01))]"
+                            : "bg-black/10"
+                        }`}
+                      >
+                        <div className="flex items-start gap-4">
+                          <div className="mt-0.5 flex h-11 w-11 items-center justify-center rounded-2xl border border-white/6 bg-white/4">
+                            <Icon className="h-5 w-5 text-[#ff7a7c]" />
+                          </div>
+                          <div>
+                            <p className="font-medium text-white">{item.title}</p>
+                            <p className="mt-1 text-[15px] leading-7 text-white/62">
+                              {item.text}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </section>
+
+        <section id="about" className="border-y border-white/5 bg-white/[0.025]">
+          <div className="mx-auto w-full max-w-[1400px] px-5 py-12 lg:px-8 lg:py-14">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={fadeUp}
+              transition={{ duration: 0.6 }}
+              className="grid gap-6 lg:grid-cols-3"
+            >
+              <Card className="relative overflow-hidden rounded-[24px] border-white/6 bg-white/[0.045] shadow-xl backdrop-blur-md lg:col-span-2">
+                <AccentLine />
+                <CardContent className="p-8">
+                  <p className="text-sm uppercase tracking-[0.22em] text-[#ff8a8c]">
+                    {t.about.eyebrow}
+                  </p>
+                  <h2 className="mt-3 text-2xl font-semibold tracking-tight lg:text-3xl">
+                    {t.about.title}
+                  </h2>
+                  <p className="mt-5 max-w-3xl text-[15px] leading-8 text-white/70 lg:text-base">
+                    {t.about.description}
+                  </p>
+
+                  <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                    {t.about.values.map((value) => (
+                      <div
+                        key={value}
+                        className="flex items-start gap-3 rounded-2xl border border-white/6 bg-black/10 p-4"
+                      >
+                        <CheckCircle2 className="mt-0.5 h-5 w-5 text-[#ff7a7c]" />
+                        <p className="text-[15px] leading-7 text-white/78">
+                          {value}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="relative overflow-hidden rounded-[24px] border-white/6 bg-white/[0.045] shadow-xl backdrop-blur-md">
+                <AccentLine />
+                <CardContent className="p-8">
+                  <p className="text-sm uppercase tracking-[0.22em] text-[#ff8a8c]">
+                    {t.about.mission}
+                  </p>
+                  <p className="mt-4 text-[15px] leading-8 text-white/72 lg:text-base">
+                    {t.about.missionText}
+                  </p>
+                  <div className="my-8 h-px bg-white/8" />
+                  <p className="text-sm uppercase tracking-[0.22em] text-[#ff8a8c]">
+                    {t.about.vision}
+                  </p>
+                  <p className="mt-4 text-[15px] leading-8 text-white/72 lg:text-base">
+                    {t.about.visionText}
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={fadeUp}
+              transition={{ duration: 0.6, delay: 0.08 }}
+              className="mt-6 grid gap-6 lg:grid-cols-2"
+            >
+              <Card className="relative overflow-hidden rounded-[24px] border-white/6 bg-white/[0.045] shadow-xl backdrop-blur-md">
+                <AccentLine />
+                <CardContent className="p-8">
+                  <p className="text-sm uppercase tracking-[0.22em] text-[#ff8a8c]">
+                    {t.story.eyebrow}
+                  </p>
+                  <h3 className="mt-3 text-xl font-semibold tracking-tight lg:text-2xl">
+                    {t.story.title}
+                  </h3>
+                  <p className="mt-4 text-[15px] leading-8 text-white/72 lg:text-base">
+                    {t.story.description}
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="relative overflow-hidden rounded-[24px] border-white/6 bg-white/[0.045] shadow-xl backdrop-blur-md">
+                <AccentLine />
+                <CardContent className="p-8">
+                  <p className="text-sm uppercase tracking-[0.22em] text-[#ff8a8c]">
+                    {t.executive.eyebrow}
+                  </p>
+                  <h3 className="mt-3 text-xl font-semibold tracking-tight lg:text-2xl">
+                    {t.executive.title}
+                  </h3>
+                  <p className="mt-4 text-[15px] leading-8 text-white/72 lg:text-base">
+                    {t.executive.description}
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+        </section>
+
+        <section className="mx-auto w-full max-w-[1400px] px-5 py-12 lg:px-8 lg:py-14" id="services">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={fadeUp}
+            transition={{ duration: 0.6 }}
+            className="mb-8 max-w-3xl"
+          >
+            <p className="text-sm uppercase tracking-[0.22em] text-[#ff8a8c]">
+              {t.services.eyebrow}
+            </p>
+            <h2 className="mt-3 text-2xl font-semibold tracking-tight lg:text-3xl">
+              {t.services.title}
+            </h2>
+            <p className="mt-4 text-[15px] leading-8 text-white/70 lg:text-base">
+              {t.services.description}
+            </p>
+          </motion.div>
+
+          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4 2xl:gap-6">
+            {t.services.items.map((service, idx) => {
+              const Icon = service.icon
+              return (
+                <motion.div
+                  key={service.title}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.2 }}
+                  variants={fadeUp}
+                  transition={{ duration: 0.5, delay: idx * 0.08 }}
+                >
+                  <Card
+                    className={`relative h-full overflow-hidden rounded-[24px] border-white/6 bg-white/[0.045] shadow-xl backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-white/10 hover:bg-white/[0.06] ${
+                      idx % 2 === 1
+                        ? "bg-[linear-gradient(135deg,rgba(255,255,255,0.03),rgba(239,77,79,0.03),rgba(255,255,255,0.02))]"
+                        : ""
+                    }`}
+                  >
+                    <AccentLine />
+                    <CardContent className="p-6">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/6 bg-white/4">
+                        <Icon className="h-5 w-5 text-[#ff7a7c]" />
+                      </div>
+                      <h3 className="mt-5 text-lg font-semibold lg:text-xl">
+                        {service.title}
+                      </h3>
+                      <p className="mt-3 text-[15px] leading-7 text-white/68">
+                        {service.text}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              )
+            })}
+          </div>
+        </section>
+
+        <section id="founders" className="border-y border-white/5 bg-white/[0.02]">
+          <div className="mx-auto w-full max-w-[1400px] px-5 py-12 lg:px-8 lg:py-14">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={fadeUp}
+              transition={{ duration: 0.6 }}
+              className="mb-8 max-w-3xl"
+            >
+              <p className="text-sm uppercase tracking-[0.22em] text-[#ff8a8c]">
+                {t.founders.eyebrow}
+              </p>
+              <h2 className="mt-3 text-2xl font-semibold tracking-tight lg:text-3xl">
+                {t.founders.title}
+              </h2>
+              <p className="mt-4 text-[15px] leading-8 text-white/70 lg:text-base">
+                {t.founders.description}
+              </p>
+            </motion.div>
+
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {localizedFounders.map((founder, idx) => (
+                <motion.div
+                  key={founder.name}
+                  initial={{ opacity: 0, y: 18 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.45, delay: idx * 0.08 }}
+                >
+                  <Card className="group relative h-full overflow-hidden rounded-[26px] border-white/6 bg-white/[0.045] shadow-xl backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-white/10">
+                    <AccentLine />
+                    <CardContent className="p-6">
+                      <div className="relative mb-5 aspect-[3/4] w-full overflow-hidden rounded-[24px] border border-white/6 bg-white/4 shadow-xl">
+                        <div className="absolute inset-0 transition-opacity duration-500 group-hover:opacity-0">
+                          <FounderImage
+                            src={founder.image1}
+                            alt={founder.name}
+                            fallback={founder.name.charAt(0)}
+                            objectPosition={founder.objectPosition}
+                          />
+                        </div>
+
+                        <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                          <FounderImage
+                            src={founder.image2}
+                            alt={`${founder.name} alternate`}
+                            fallback={founder.name.charAt(0)}
+                            objectPosition={founder.objectPosition}
+                          />
+                        </div>
+                      </div>
+
+                      <p className="text-lg font-semibold lg:text-xl">
+                        {founder.name}
+                      </p>
+                      <p className="mt-1 text-sm text-[#ff8a8c]">
+                        {founder.roleText}
+                      </p>
+                      <p className="mt-4 text-[15px] leading-7 text-white/68">
+                        {founder.bioText}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="mx-auto w-full max-w-[1400px] px-5 py-12 lg:px-8 lg:py-14">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={fadeUp}
+            transition={{ duration: 0.6 }}
+          >
+            <Card className="relative overflow-hidden rounded-[30px] border-white/6 bg-[linear-gradient(135deg,rgba(239,77,79,0.10),rgba(255,255,255,0.03),rgba(255,255,255,0.015))] shadow-2xl backdrop-blur-xl">
+              <AccentLine />
+              <CardContent className="grid gap-8 p-8 lg:grid-cols-[1fr_0.9fr] lg:p-10">
+                <div>
+                  <p className="text-sm uppercase tracking-[0.22em] text-[#ff8a8c]">
+                    {t.platform.eyebrow}
+                  </p>
+                  <h2 className="mt-3 text-2xl font-semibold tracking-tight lg:text-3xl">
+                    {t.platform.title}
+                  </h2>
+                  <p className="mt-4 max-w-2xl text-[15px] leading-8 text-white/72 lg:text-base">
+                    {t.platform.description}
+                  </p>
+                </div>
+
+                <div className="flex items-center lg:justify-end">
+                  <Button
+                    asChild
+                    size="lg"
+                    className="rounded-full border border-white/10 bg-white text-[#071b2d] hover:bg-white/90"
+                  >
+                    <a href="/login">
+                      {t.platform.cta}
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </a>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </section>
+
+        <section id="contact" className="border-t border-white/5 bg-white/[0.02]">
+          <div className="mx-auto w-full max-w-[1400px] px-5 py-12 lg:px-8 lg:py-14">
+            <div className="grid gap-6 lg:grid-cols-[minmax(320px,0.92fr)_minmax(0,1.08fr)] xl:gap-8">
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={fadeUp}
+                transition={{ duration: 0.6 }}
+              >
+                <Card className="relative h-full overflow-hidden rounded-[26px] border-white/6 bg-white/[0.045] shadow-xl backdrop-blur-md">
+                  <AccentLine />
+                  <CardContent className="p-8">
+                    <p className="text-sm uppercase tracking-[0.22em] text-[#ff8a8c]">
+                      {t.contact.eyebrow}
+                    </p>
+                    <h2 className="mt-3 text-2xl font-semibold tracking-tight lg:text-3xl">
+                      {t.contact.title}
+                    </h2>
+                    <p className="mt-4 text-[15px] leading-8 text-white/70 lg:text-base">
+                      {t.contact.description}
+                    </p>
+
+                    <div className="mt-8 space-y-4">
+                      <a
+                        href={`mailto:${emailAddress}`}
+                        className="flex items-center gap-4 rounded-2xl border border-white/6 bg-black/10 p-4 transition hover:border-white/10 hover:bg-white/[0.05]"
+                      >
+                        <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/6 bg-white/4">
+                          <Mail className="h-5 w-5 text-[#ff7a7c]" />
+                        </div>
+                        <div>
+                          <p className="font-medium text-white">
+                            {t.contact.emailTitle}
+                          </p>
+                          <p className="text-[15px] leading-7 text-white/62">
+                            {emailAddress}
+                          </p>
+                        </div>
+                      </a>
+
+                      <a
+                        href={whatsappUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex items-center gap-4 rounded-2xl border border-white/6 bg-black/10 p-4 transition hover:border-white/10 hover:bg-white/[0.05]"
+                      >
+                        <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/6 bg-white/4">
+                          <MessageCircle className="h-5 w-5 text-[#ff7a7c]" />
+                        </div>
+                        <div>
+                          <p className="font-medium text-white">
+                            {t.contact.whatsappTitle}
+                          </p>
+                          <p className="text-[15px] leading-7 text-white/62">
+                            {t.contact.whatsappText}
+                          </p>
+                        </div>
+                      </a>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={fadeUp}
+                transition={{ duration: 0.6, delay: 0.1 }}
+              >
+                <Card className="relative overflow-hidden rounded-[26px] border-white/6 bg-white/[0.045] shadow-xl backdrop-blur-md">
+                  <AccentLine />
+                  <CardContent className="p-8">
+                    <div className="mb-6">
+                      <p className="text-sm uppercase tracking-[0.22em] text-[#ff8a8c]">
+                        {t.contact.formEyebrow}
+                      </p>
+                      <h3 className="mt-3 text-xl font-semibold tracking-tight lg:text-2xl">
+                        {t.contact.formTitle}
+                      </h3>
+                    </div>
+
+                    <form className="grid gap-4">
+                      <div className="grid gap-4 md:grid-cols-2">
+                        <Input
+                          placeholder={t.contact.name}
+                          className="h-12 rounded-2xl border-white/8 bg-white/4 text-white placeholder:text-white/35"
+                        />
+                        <Input
+                          type="email"
+                          placeholder={t.contact.email}
+                          className="h-12 rounded-2xl border-white/8 bg-white/4 text-white placeholder:text-white/35"
+                        />
+                      </div>
+
+                      <Input
+                        placeholder={t.contact.company}
+                        className="h-12 rounded-2xl border-white/8 bg-white/4 text-white placeholder:text-white/35"
+                      />
+
+                      <Textarea
+                        placeholder={t.contact.message}
+                        className="min-h-[160px] rounded-2xl border-white/8 bg-white/4 text-white placeholder:text-white/35"
+                      />
+
+                      <div className="flex flex-col gap-3 sm:flex-row">
+                        <Button
+                          type="submit"
+                          className="rounded-full border border-[#ef4d4f]/20 bg-[#ef4d4f] px-6 text-white shadow-[0_10px_30px_rgba(239,77,79,0.22)] hover:bg-[#e5484b]"
+                        >
+                          {t.contact.submit}
+                        </Button>
+
+                        <Button
+                          asChild
+                          type="button"
+                          variant="outline"
+                          className="rounded-full border-white/10 bg-white/4 px-6 text-white hover:bg-white/8"
+                        >
+                          <a href={whatsappUrl} target="_blank" rel="noreferrer">
+                            {t.contact.whatsappButton}
+                          </a>
+                        </Button>
+                      </div>
+                    </form>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="border-t border-white/6 bg-black/10">
+        <div className="mx-auto flex w-full max-w-[1400px] flex-col gap-4 px-5 py-8 text-sm text-white/55 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+          <p>{t.footer.rights}</p>
+          <div className="flex items-center gap-5">
+            <a href="#about" className="transition hover:text-white">
+              {t.nav.about}
+            </a>
+            <a href="#services" className="transition hover:text-white">
+              {t.nav.services}
+            </a>
+            <a href="#contact" className="transition hover:text-white">
+              {t.nav.contact}
+            </a>
+            <a href="/login" className="transition hover:text-white">
+              {t.footer.platform}
+            </a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  )
+}
