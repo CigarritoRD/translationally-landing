@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react"
+import  { useEffect, useMemo, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import {
   ArrowRight,
@@ -7,7 +7,7 @@ import {
   Mail,
   MessageCircle,
   ShieldCheck,
-  Sparkles,
+  
   Users2,
   FileText,
   Building2,
