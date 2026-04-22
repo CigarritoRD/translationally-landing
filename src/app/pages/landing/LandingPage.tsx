@@ -122,37 +122,37 @@ const content = {
       request: "Solicitar servicios",
     },
     hero: {
-      badge: "Servicios lingüísticos con una experiencia moderna y confiable",
-      before: "Traducción profesional con una experiencia",
-      rotating: ["clara", "precisa", "confiable", "humana"],
-      after: ".",
+      badge: "Aliado lingüístico y logístico con una experiencia moderna y confiable",
+      before: "Aliado lingüístico y logístico con enfoque",
+      rotating: ["claro", "preciso", "confiable", "humano"],
+      after: "",
       description:
         "Somos una empresa orientada a ofrecer servicios de alta calidad a una amplia variedad de públicos, con especial enfoque en organizaciones sin fines de lucro. Brindamos soluciones profesionales, puntuales, eficaces y asequibles, diseñadas para responder a las necesidades específicas de cada cliente.",
       primaryCta: "Contratar servicios",
-      secondaryCta: "Ir a la plataforma de traducción",
+      secondaryCta: "Acceder a la plataforma de traducción",
       stats: [
-        { label: "Enfoque", value: "Calidad" },
-        { label: "Proceso", value: "Ordenado" },
+        { label: "Enfoque", value: "Rigor" },
+        { label: "Proceso", value: "Eficienciente" },
         { label: "Atención", value: "Humana" },
         { label: "Entrega", value: "Confiable" },
       ],
-      panelTitle: "Socio lingüístico confiable",
+      panelTitle: "Aliado en soluciones lingüísticas",
       panelBadge: "Flujo moderno",
       panelItems: [
         {
           icon: BadgeCheck,
-          title: "Procesos estructurados",
-          text: "Organización clara desde la recepción hasta la entrega del trabajo.",
+          title: "Metodología estructurada",
+          text: "Metodología clara y organizada desde la recepción hasta la entrega final.",
         },
         {
           icon: Clock3,
-          title: "Compromiso con tiempos",
-          text: "Coordinación eficiente para responder con agilidad y consistencia.",
+          title: "Cumplimiento de plazos",
+          text: "Gestión eficiente orientada al cumplimiento puntual y consistente.",
         },
         {
           icon: Users2,
           title: "Equipo humano",
-          text: "Una marca construida por personas comprometidas con la excelencia.",
+          text: "Profesionales comprometidos con estándares de excelencia.",
         },
       ],
     },
@@ -263,7 +263,7 @@ const content = {
     hero: {
       badge: "Language services with a modern and trustworthy experience",
       before: "Professional translation with a",
-      rotating: ["clear", "precise", "reliable", "human"],
+      rotating: ["clarity", "precision", "reliability", "the human touch"],
       after: " experience.",
       description:
         "We are a company committed to providing high-quality services to a wide range of audiences, with a special focus on nonprofit organizations. We deliver professional, timely, effective, and affordable solutions tailored to the specific needs of each client.",
@@ -275,7 +275,7 @@ const content = {
         { label: "Care", value: "Human" },
         { label: "Delivery", value: "Reliable" },
       ],
-      panelTitle: "Trusted language partner",
+      panelTitle: "Your ally in language solutions",
       panelBadge: "Modern workflow",
       panelItems: [
         {
