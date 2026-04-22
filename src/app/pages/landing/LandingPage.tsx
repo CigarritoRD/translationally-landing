@@ -25,7 +25,7 @@ const logoUrl =
   "https://translationally-five.vercel.app/assets/logo-DsmuveuX.png"
 
 const whatsappUrl = "https://wa.me/18090000000"
-const emailAddress = "Info@translationally.n"
+const emailAddress = "Info@translationally.net"
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -71,7 +71,7 @@ const founders = [
     name: "Katerine Mota",
     role: {
       es: "Co-fundadora · Gerente de Personal y Producción",
-      en: "Co-founder · Staff and production manager",
+      en: "Co-founder · Chief Operating Officer",
     },
     bio: {
       es: "Katerine Mota, nacida en Bonao, dedicó su vida al servicio del Señor desde temprana edad. Descubrió su pasión por la traducción a los 13 años, lo que la llevó a formarse como Licenciada en Lenguas Modernas y a completar un diplomado en Traducción Jurídica. Ha trabajado como traductora y editora para organizaciones como Hope International y Southern Baptist School Seminary, y actualmente también sirve como speaker de Compassion International. En TranslationAlly lidera la logística, el staff y la producción con enfoque en calidad, estructura y servicio.",
@@ -85,13 +85,13 @@ const founders = [
     name: "Lea Peguero",
     role: {
       es: "Co-fundadora · Gerente de Relaciones Externas",
-      en: "Co-founder · External Relationship Manager",
+      en: "Co-founder · Chief Partnerships & External Relations Officer",
     },
     bio: {
       es: "Lea Peguero proviene de una familia con fuerte enfoque misional y reside en Santo Domingo. Entregó su vida a Cristo a los seis años y comenzó a servir en el ministerio desde los once. Es licenciada en Publicidad y Comunicación por la Universidad APEC y posee una maestría en Dirección de Marketing por la Universidad Nebrija en Madrid, España. También comparte su experiencia como profesora adjunta en CETYS Universidad en México. Ha servido con organizaciones como YWAM, Compassion International, Food for the Hungry y YouVersion. En TranslationAlly lidera las relaciones externas y el desarrollo de alianzas estratégicas con excelencia, propósito y corazón.",
       en: "Lea Peguero comes from a mission-driven family and lives in Santo Domingo. She gave her life to Christ at the age of six and began serving in ministry at eleven. She holds a bachelor’s degree in Advertising and Communication from APEC University and a master’s degree in Marketing Direction from Nebrija University in Madrid, Spain. She also serves as an adjunct professor at CETYS University in Mexico. Lea has worked with organizations such as YWAM, Compassion International, Food for the Hungry, and YouVersion. At TranslationAlly, she leads external relationships and strategic partnerships with excellence, purpose, and heart.",
     },
-    image1: "https://i.imgur.com/QAF60tx.jpeg",
+    image1: "https://i.imgur.com/6k1f3IX.jpeg",
     image2: "https://i.imgur.com/GYiNvqQ.jpeg",
     objectPosition: "object-[center_18%]",
   },
@@ -99,7 +99,7 @@ const founders = [
     name: "Zoila Luciano",
     role: {
       es: "Co-fundadora · Gerente de Finanzas",
-      en: "Co-founder · Finance Manager",
+      en: "Co-founder · Chief Financial Officer",
     },
     bio: {
       es: "Zoila Luciano es esposa de pastor, madre de tres hijos y una profesional con vasta experiencia en servicio, liderazgo y administración. Posee una licenciatura en Contabilidad, una maestría en Mercadeo y estudios avanzados en teología, culminando una maestría en Estudios Teológicos y Consejería Familiar. Trabajó por varios años en Banreservas, fue administradora de una empresa privada y dirigió por más de 12 años un Centro de Compassion, liderando proyectos de desarrollo social y campamentos para distintas edades. En TranslationAlly lidera el área financiera con una visión de orden, servicio y excelencia.",
@@ -118,7 +118,7 @@ const content = {
       services: "Servicios",
       founders: "Fundadoras",
       contact: "Contacto",
-      platform: "Entrar a la plataforma",
+      platform: "Acceder a la plataforma",
       request: "Solicitar servicios",
     },
     hero: {
@@ -128,7 +128,7 @@ const content = {
       after: "",
       description:
         "Somos una empresa orientada a ofrecer servicios de alta calidad a una amplia variedad de públicos, con especial enfoque en organizaciones sin fines de lucro. Brindamos soluciones profesionales, puntuales, eficaces y asequibles, diseñadas para responder a las necesidades específicas de cada cliente.",
-      primaryCta: "Contratar servicios",
+      primaryCta: "Solicitar servicios",
       secondaryCta: "Acceder a la plataforma de traducción",
       stats: [
         { label: "Enfoque", value: "Rigor" },
@@ -227,7 +227,7 @@ const content = {
       title: "¿Eres parte del equipo de traducción?",
       description:
         "Accede directamente a la plataforma interna de TranslationAlly para gestionar trabajo, seguimiento y flujo operativo.",
-      cta: "Entrar a la plataforma",
+      cta: "Acceder a la plataforma",
     },
     contact: {
       eyebrow: "Contacto",
