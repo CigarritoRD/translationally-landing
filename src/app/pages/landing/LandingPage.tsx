@@ -1,13 +1,12 @@
-import  { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import {
   ArrowRight,
-  CheckCircle2,
   Languages,
   Mail,
   MessageCircle,
   ShieldCheck,
-  
+
   Users2,
   FileText,
   Building2,
@@ -132,7 +131,7 @@ const content = {
       secondaryCta: "Acceder a la plataforma de traducción",
       stats: [
         { label: "Enfoque", value: "Rigor" },
-        { label: "Proceso", value: "Eficienciente" },
+        { label: "Proceso", value: "Eficiente" },
         { label: "Atención", value: "Humana" },
         { label: "Entrega", value: "Confiable" },
       ],
@@ -158,34 +157,27 @@ const content = {
     },
     about: {
       eyebrow: "Quiénes somos",
-      title: "Una empresa construida con visión, experiencia y servicio",
+      title: "Una empresa orientada a ofrecer servicios de alta calidad",
       description:
-        "Somos una empresa orientada a ofrecer servicios de alta calidad a una amplia variedad de públicos. Nos especializamos particularmente en organizaciones sin fines de lucro, brindando soluciones profesionales y puntuales. Nos comprometemos a ofrecer un servicio eficaz y asequible, diseñado para satisfacer las necesidades específicas de nuestros clientes.",
-      values: [
-        "Servicio eficaz y asequible",
-        "Experiencia sólida en el sector",
-        "Compromiso con calidad y puntualidad",
-        "Atención profesional para públicos diversos",
-      ],
-      mission: "Misión",
-      missionText:
-        "Brindar soluciones lingüísticas confiables, profesionales y puntuales para organizaciones, equipos y proyectos que necesitan calidad, claridad y sensibilidad cultural en cada entrega.",
-      vision: "Visión",
-      visionText:
-        "Consolidarnos como un aliado lingüístico de referencia por nuestra excelencia operativa, experiencia acumulada y compromiso humano con el servicio.",
+        "Nos especializamos particularmente en organizaciones sin fines de lucro, brindando soluciones profesionales y puntuales. Nos comprometemos a ofrecer un servicio eficaz y asequible, diseñado para satisfacer las necesidades específicas de nuestros clientes.",
     },
     story: {
       eyebrow: "Visión y experiencia",
       title: "TranslationAlly es el resultado de años de preparación y esfuerzo",
       description:
-        "TranslationAlly no es una idea nueva, sino el resultado de años de trabajo para convertir una visión en una realidad tangible. A lo largo de ese proceso, hemos desarrollado un enfoque sólido y efectivo, respaldado por una profunda experiencia en el sector.",
+        "Hemos trabajado durante mucho tiempo para convertir nuestra visión en una realidad tangible. A lo largo de este proceso, hemos desarrollado un enfoque sólido y efectivo, respaldado por una profunda experiencia en el sector.",
     },
     executive: {
       eyebrow: "Equipo ejecutivo",
-      title:
-        "Liderazgo con experiencia en gestión, servicio y colaboración con ONGs",
+      title: "Liderazgo con experiencia en gestión y colaboración con ONGs",
       description:
-        "Nuestro comité ejecutivo está compuesto por profesionales altamente experimentados y capacitados. Contamos con líderes con vasta experiencia en la gestión de equipos y en la colaboración con organizaciones no gubernamentales, lo que nos permite ofrecer soluciones ajustadas a las necesidades del sector sin fines de lucro.",
+        "Nuestro comité ejecutivo está compuesto por profesionales altamente experimentados y capacitados. Contamos con un equipo de líderes con vasta experiencia en la gestión de equipos y en la colaboración con organizaciones no gubernamentales (ONGs). Este expertise nos permite ofrecer soluciones que se ajustan a las necesidades del sector sin fines de lucro.",
+    },
+    providers: {
+      eyebrow: "Red de proveedores",
+      title: "Una red calificada para servir a públicos diversos y multiculturales",
+      description:
+        "Nuestro equipo trabaja con un grupo de colaboradores estratégicos que nos permiten ofrecer servicios de calidad en varios idiomas, incluyendo inglés, español, francés y criollo, entre otros. Esto garantiza que podamos brindar atención a un público diverso y multicultural.",
     },
     services: {
       eyebrow: "Servicios",
@@ -222,6 +214,63 @@ const content = {
       description:
         "Conoce a las mujeres que dan dirección, estructura y visión al crecimiento de la empresa.",
     },
+    faq: {
+      eyebrow: "Preguntas frecuentes",
+      title: "FAQ",
+      items: [
+        {
+          question: "¿Qué servicios ofrece TranslationAlly?",
+          answer:
+            "Ofrecemos traducción escrita general y legal, interpretación presencial, interpretación simultánea y apoyo lingüístico para eventos. También brindamos coordinación logística para grupos misioneros y organizaciones eclesiásticas, servicio de guía turístico y maestro de ceremonia.",
+        },
+        {
+          question: "¿Cuál es la diferencia entre interpretación y traducción?",
+          answer:
+            "La traducción se refiere a contenido escrito, mientras que la interpretación es comunicación oral en tiempo real, como en reuniones, eventos o visitas guiadas.",
+        },
+        {
+          question: "¿Ofrecen interpretación presencial y simultánea?",
+          answer:
+            "Sí, ofrecemos interpretación consecutiva y simultánea según las necesidades de tu evento.",
+        },
+        {
+          question: "¿Trabajan con grupos misioneros o iglesias?",
+          answer:
+            "Sí, nos especializamos en apoyar equipos misioneros y grupos eclesiásticos con traducción, logística, coordinación y orientación cultural.",
+        },
+        {
+          question: "¿Qué tipo de apoyo logístico ofrecen?",
+          answer:
+            "Apoyamos en planificación, coordinación, itinerarios y asistencia en terreno para asegurar que la experiencia de tu grupo sea fluida.",
+        },
+        {
+          question: "¿Ofrecen servicios de maestro de ceremonia?",
+          answer:
+            "Sí, ofrecemos servicios profesionales de maestro de ceremonia, asegurando una comunicación clara y un desarrollo fluido del evento.",
+        },
+        {
+          question: "¿Cómo puedo comenzar?",
+          answer:
+            "Solo contáctanos con tus necesidades y te guiaremos con un plan personalizado y una cotización.",
+        },
+        {
+          question: "¿Cuánto cuestan sus servicios?",
+          answer:
+            "El precio depende del tipo de servicio, duración y alcance del proyecto. Ofrecemos cotizaciones personalizadas.",
+        },
+        {
+          question: "¿Mi información es confidencial?",
+          answer:
+            "Sí, manejamos toda la información con estricta confidencialidad y profesionalismo.",
+        },
+        {
+          question: "¿Por qué elegir TranslationAlly?",
+          answer:
+            "Combinamos experiencia lingüística, entendimiento cultural y un enfoque humano para ofrecer experiencias de comunicación confiables y significativas.",
+        },
+      ],
+    },
+
     platform: {
       eyebrow: "Plataforma interna",
       title: "¿Eres parte del equipo de traducción?",
@@ -253,90 +302,83 @@ const content = {
   },
   en: {
     nav: {
-      about: "About",
+      about: "About us",
       services: "Services",
       founders: "Founders",
       contact: "Contact",
-      platform: "Go to platform",
+      platform: "Access the platform",
       request: "Request services",
     },
     hero: {
-      badge: "Language services with a modern and trustworthy experience",
-      before: "Professional translation with a",
-      rotating: ["clarity", "precision", "reliability", "the human touch"],
-      after: " experience.",
+      badge: "A linguistic and logistics ally with a modern and reliable experience",
+      before: "A linguistic and logistics ally with a",
+      rotating: ["clear", "precise", "reliable", "human"],
+      after: " approach",
       description:
-        "We are a company committed to providing high-quality services to a wide range of audiences, with a special focus on nonprofit organizations. We deliver professional, timely, effective, and affordable solutions tailored to the specific needs of each client.",
-      primaryCta: "Hire our services",
-      secondaryCta: "Go to translation platform",
+        "We are a company committed to providing high-quality services to a wide range of audiences, with a special focus on nonprofit organizations. We provide professional, timely, effective, and affordable solutions designed to meet each client’s specific needs.",
+      primaryCta: "Request services",
+      secondaryCta: "Access the translation platform",
       stats: [
-        { label: "Focus", value: "Quality" },
-        { label: "Process", value: "Structured" },
+        { label: "Focus", value: "Rigor" },
+        { label: "Process", value: "Efficient" },
         { label: "Care", value: "Human" },
         { label: "Delivery", value: "Reliable" },
       ],
-      panelTitle: "Your ally in language solutions",
+      panelTitle: "Ally in language solutions",
       panelBadge: "Modern workflow",
       panelItems: [
         {
           icon: BadgeCheck,
-          title: "Structured processes",
-          text: "Clear organization from intake to final delivery.",
+          title: "Structured methodology",
+          text: "A clear and organized methodology from intake to final delivery.",
         },
         {
           icon: Clock3,
-          title: "Commitment to timing",
-          text: "Efficient coordination to respond with agility and consistency.",
+          title: "Deadline commitment",
+          text: "Efficient management focused on timely and consistent delivery.",
         },
         {
           icon: Users2,
           title: "Human team",
-          text: "A brand built by people committed to excellence.",
+          text: "Professionals committed to standards of excellence.",
         },
       ],
     },
     about: {
       eyebrow: "About us",
-      title: "A company built on vision, experience, and service",
+      title: "A company committed to delivering high-quality services",
       description:
-        "We are a company committed to providing high-quality services to a wide range of audiences. We specialize particularly in nonprofit organizations, offering professional and timely solutions. We are committed to delivering effective and affordable service designed to meet the specific needs of our clients.",
-      values: [
-        "Effective and affordable service",
-        "Strong experience in the sector",
-        "Commitment to quality and punctuality",
-        "Professional support for diverse audiences",
-      ],
-      mission: "Mission",
-      missionText:
-        "To provide reliable, professional, and timely language solutions for organizations, teams, and projects that need quality, clarity, and cultural sensitivity in every delivery.",
-      vision: "Vision",
-      visionText:
-        "To become a trusted language partner recognized for operational excellence, accumulated experience, and a deeply human commitment to service.",
+        "We specialize particularly in nonprofit organizations, providing professional and timely solutions. We are committed to offering effective and affordable service designed to meet the specific needs of our clients.",
     },
     story: {
       eyebrow: "Vision and experience",
       title: "TranslationAlly is the result of years of preparation and effort",
       description:
-        "TranslationAlly is not a new idea, but the result of years of work to turn a vision into a tangible reality. Throughout that process, we developed a solid and effective approach supported by deep experience in the field.",
+        "We have worked for a long time to turn our vision into a tangible reality. Throughout this process, we have developed a solid and effective approach, supported by deep experience in the field.",
     },
     executive: {
       eyebrow: "Executive team",
-      title:
-        "Leadership with experience in management, service, and NGO collaboration",
+      title: "Leadership with experience in management and collaboration with NGOs",
       description:
-        "Our executive committee is made up of highly experienced and skilled professionals. We bring together leaders with extensive experience in team management and collaboration with nonprofit organizations, allowing us to offer solutions that truly fit the sector’s needs.",
+        "Our executive committee is composed of highly experienced and qualified professionals. We have a team of leaders with extensive experience in team management and collaboration with non-governmental organizations (NGOs). This expertise allows us to offer solutions that fit the needs of the nonprofit sector.",
+    },
+    providers: {
+      eyebrow: "Provider network",
+      title: "A qualified network ready to serve diverse and multicultural audiences",
+      description:
+        "Our team works with a group of strategic collaborators that allow us to offer quality services in several languages, including English, Spanish, French, and Haitian Creole, among others. This ensures that we can serve a diverse and multicultural audience.",
     },
     services: {
       eyebrow: "Services",
       title:
-        "Language and logistics solutions for organizations, teams, and multicultural projects.",
+        "Language and logistics solutions designed for organizations, teams, and multicultural projects",
       description:
-        "We work with a network of highly qualified providers with proven experience, allowing us to offer quality services in multiple languages, including English, Spanish, French, and Haitian Creole, among others.",
+        "We have a network of highly qualified providers with proven experience. This allows us to offer quality services in several languages, including English, Spanish, French, and Haitian Creole, among others.",
       items: [
         {
           icon: Languages,
           title: "Professional translation",
-          text: "Accurate, clear, and consistent translations for different kinds of content and institutional needs.",
+          text: "Precise, clear, and consistent translations for different types of content and institutional needs.",
         },
         {
           icon: FileText,
@@ -359,14 +401,70 @@ const content = {
       eyebrow: "Founders",
       title: "The leadership behind TranslationAlly",
       description:
-        "Meet the women who bring direction, structure, and vision to the company’s growth.",
+        "Meet the women who provide direction, structure, and vision to the company’s growth.",
+    },
+    faq: {
+      eyebrow: "Frequently Asked Questions",
+      title: "FAQ",
+      items: [
+        {
+          question: "What services does TranslationAlly offer?",
+          answer:
+            "We provide written translation, including general and legal translation, on-site interpretation, simultaneous interpretation, and language support for events. We also offer logistics coordination for mission groups and faith-based organizations, tour guide services, and master of ceremony support.",
+        },
+        {
+          question: "What is the difference between interpretation and translation?",
+          answer:
+            "Translation refers to written content, while interpretation is spoken communication in real time, such as meetings, events, or guided visits.",
+        },
+        {
+          question: "Do you provide on-site and simultaneous interpretation?",
+          answer:
+            "Yes, we offer both consecutive and simultaneous interpretation depending on your event’s needs.",
+        },
+        {
+          question: "Do you work with mission groups or churches?",
+          answer:
+            "Absolutely. We specialize in supporting mission teams and faith-based groups with translation, logistics, coordination, and cultural guidance.",
+        },
+        {
+          question: "What kind of logistics support do you provide?",
+          answer:
+            "We assist with planning, coordination, scheduling, and on-the-ground support to ensure your group’s experience runs smoothly.",
+        },
+        {
+          question: "Do you offer MC or event hosting services?",
+          answer:
+            "Yes, we provide professional MC services for events, ensuring clear communication and a smooth flow throughout the program.",
+        },
+        {
+          question: "How do I get started?",
+          answer:
+            "Simply contact us with your needs, and we’ll guide you through the next steps with a customized plan and quote.",
+        },
+        {
+          question: "How much do your services cost?",
+          answer:
+            "Pricing depends on the type of service, duration, and project scope. We provide tailored quotes to match your needs.",
+        },
+        {
+          question: "Is my information confidential?",
+          answer:
+            "Yes, we handle all information with strict confidentiality and professionalism.",
+        },
+        {
+          question: "Why choose TranslationAlly?",
+          answer:
+            "We combine language expertise, cultural understanding, and a human-centered approach to deliver reliable and meaningful communication experiences.",
+        },
+      ],
     },
     platform: {
       eyebrow: "Internal platform",
       title: "Are you part of the translation team?",
       description:
-        "Access the internal TranslationAlly platform to manage work, follow-up, and operational flow.",
-      cta: "Go to platform",
+        "Access TranslationAlly’s internal platform directly to manage work, follow-up, and operational flow.",
+      cta: "Access the platform",
     },
     contact: {
       eyebrow: "Contact",
@@ -375,7 +473,7 @@ const content = {
         "Tell us what you need and we will help you find the best way to work together.",
       emailTitle: "Email",
       whatsappTitle: "WhatsApp",
-      whatsappText: "Reach out quickly and directly",
+      whatsappText: "Contact us quickly and directly",
       formEyebrow: "Form",
       formTitle: "Request information",
       name: "Name",
@@ -395,6 +493,8 @@ const content = {
 export default function TranslationallyLandingPage() {
   const [locale, setLocale] = useState<Locale>("es")
   const [wordIndex, setWordIndex] = useState(0)
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0)
+  const [isScrolled, setIsScrolled] = useState(false)
 
   const t = content[locale]
   const rotatingWords = useMemo(() => t.hero.rotating, [t.hero.rotating])
@@ -430,7 +530,12 @@ export default function TranslationallyLandingPage() {
         <div className="absolute left-[8%] bottom-[12%] h-44 w-44 animate-pulse rounded-full bg-[#ff7a7c]/7 blur-3xl [animation-delay:1800ms]" />
       </div>
 
-      <header className="sticky top-0 z-40 border-b border-white/6 bg-[#071b2d]/70 backdrop-blur-2xl">
+      <header
+        className={`fixed inset-x-0 top-0 z-50 border-b border-white/6 backdrop-blur-2xl transition-all duration-300 ${isScrolled
+          ? "bg-[#071b2d]/88 shadow-[0_10px_40px_rgba(0,0,0,0.28)]"
+          : "bg-[#071b2d]/70"
+          }`}
+      >
         <div className="mx-auto flex w-full max-w-[1400px] items-center justify-between px-5 py-4 lg:px-8">
           <div className="flex items-center gap-3">
             <img src={logoUrl} alt="TranslationAlly logo" className="h-11 w-auto" />
@@ -479,7 +584,7 @@ export default function TranslationallyLandingPage() {
         </div>
       </header>
 
-      <main>
+      <main className="pt-24">
         <section className="mx-auto grid w-full max-w-[1400px] items-center gap-12 px-5 py-20 lg:grid-cols-[1fr_0.95fr] lg:px-8 lg:py-28 xl:gap-16">
           <motion.div
             initial="hidden"
@@ -589,11 +694,10 @@ export default function TranslationallyLandingPage() {
                     return (
                       <div
                         key={item.title}
-                        className={`rounded-2xl border border-white/6 p-4 transition hover:border-white/10 hover:bg-white/[0.05] ${
-                          idx === 1
-                            ? "bg-[linear-gradient(135deg,rgba(255,255,255,0.02),rgba(239,77,79,0.035),rgba(255,255,255,0.01))]"
-                            : "bg-black/10"
-                        }`}
+                        className={`rounded-2xl border border-white/6 p-4 transition hover:border-white/10 hover:bg-white/[0.05] ${idx === 1
+                          ? "bg-[linear-gradient(135deg,rgba(255,255,255,0.02),rgba(239,77,79,0.035),rgba(255,255,255,0.01))]"
+                          : "bg-black/10"
+                          }`}
                       >
                         <div className="flex items-start gap-4">
                           <div className="mt-0.5 flex h-11 w-11 items-center justify-center rounded-2xl border border-white/6 bg-white/4">
@@ -616,102 +720,58 @@ export default function TranslationallyLandingPage() {
         </section>
 
         <section id="about" className="border-y border-white/5 bg-white/[0.025]">
-          <div className="mx-auto w-full max-w-[1400px] px-5 py-12 lg:px-8 lg:py-14">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              variants={fadeUp}
-              transition={{ duration: 0.6 }}
-              className="grid gap-6 lg:grid-cols-3"
-            >
-              <Card className="relative overflow-hidden rounded-[24px] border-white/6 bg-white/[0.045] shadow-xl backdrop-blur-md lg:col-span-2">
+          <div className="mx-auto w-full max-w-[1400px] px-5 py-14 lg:px-8 lg:py-16">
+            <div className="grid gap-8">
+              <Card className="relative overflow-hidden rounded-[28px] border-white/8 bg-[linear-gradient(135deg,rgba(255,255,255,0.045),rgba(255,255,255,0.02),rgba(239,77,79,0.03))] shadow-xl backdrop-blur-md">
                 <AccentLine />
-                <CardContent className="p-8">
-                  <p className="text-sm uppercase tracking-[0.22em] text-[#ff8a8c]">
-                    {t.about.eyebrow}
-                  </p>
-                  <h2 className="mt-3 text-2xl font-semibold tracking-tight lg:text-3xl">
-                    {t.about.title}
-                  </h2>
-                  <p className="mt-5 max-w-3xl text-[15px] leading-8 text-white/70 lg:text-base">
-                    {t.about.description}
-                  </p>
-
-                  <div className="mt-8 grid gap-3 sm:grid-cols-2">
-                    {t.about.values.map((value) => (
-                      <div
-                        key={value}
-                        className="flex items-start gap-3 rounded-2xl border border-white/6 bg-black/10 p-4"
-                      >
-                        <CheckCircle2 className="mt-0.5 h-5 w-5 text-[#ff7a7c]" />
-                        <p className="text-[15px] leading-7 text-white/78">
-                          {value}
-                        </p>
-                      </div>
-                    ))}
+                <CardContent className="p-8 lg:p-10">
+                  <div className="max-w-4xl">
+                    <p className="text-sm uppercase tracking-[0.22em] text-[#ff8a8c]">
+                      {t.about.eyebrow}
+                    </p>
+                    <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white lg:text-4xl">
+                      {t.about.title}
+                    </h2>
+                    <p className="mt-6 text-[16px] leading-9 text-white/72 lg:max-w-4xl">
+                      {t.about.description}
+                    </p>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="relative overflow-hidden rounded-[24px] border-white/6 bg-white/[0.045] shadow-xl backdrop-blur-md">
-                <AccentLine />
-                <CardContent className="p-8">
-                  <p className="text-sm uppercase tracking-[0.22em] text-[#ff8a8c]">
-                    {t.about.mission}
-                  </p>
-                  <p className="mt-4 text-[15px] leading-8 text-white/72 lg:text-base">
-                    {t.about.missionText}
-                  </p>
-                  <div className="my-8 h-px bg-white/8" />
-                  <p className="text-sm uppercase tracking-[0.22em] text-[#ff8a8c]">
-                    {t.about.vision}
-                  </p>
-                  <p className="mt-4 text-[15px] leading-8 text-white/72 lg:text-base">
-                    {t.about.visionText}
-                  </p>
-                </CardContent>
-              </Card>
-            </motion.div>
+              <div className="grid gap-8 lg:grid-cols-2">
+                <Card className="relative overflow-hidden rounded-[26px] border-white/6 bg-white/[0.04] shadow-xl backdrop-blur-md">
+                  <AccentLine />
+                  <CardContent className="p-8">
+                    <p className="text-sm uppercase tracking-[0.22em] text-[#ff8a8c]">
+                      {t.story.eyebrow}
+                    </p>
+                    <h3 className="mt-4 text-2xl font-semibold leading-tight tracking-tight text-white lg:text-[2rem]">
+                      {t.story.title}
+                    </h3>
+                    <p className="mt-6 text-[15px] leading-9 text-white/70">
+                      {t.story.description}
+                    </p>
+                  </CardContent>
+                </Card>
 
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              variants={fadeUp}
-              transition={{ duration: 0.6, delay: 0.08 }}
-              className="mt-6 grid gap-6 lg:grid-cols-2"
-            >
-              <Card className="relative overflow-hidden rounded-[24px] border-white/6 bg-white/[0.045] shadow-xl backdrop-blur-md">
-                <AccentLine />
-                <CardContent className="p-8">
-                  <p className="text-sm uppercase tracking-[0.22em] text-[#ff8a8c]">
-                    {t.story.eyebrow}
-                  </p>
-                  <h3 className="mt-3 text-xl font-semibold tracking-tight lg:text-2xl">
-                    {t.story.title}
-                  </h3>
-                  <p className="mt-4 text-[15px] leading-8 text-white/72 lg:text-base">
-                    {t.story.description}
-                  </p>
-                </CardContent>
-              </Card>
+                <Card className="overflow-hidden rounded-[26px] border-white/5 bg-white/[0.03] shadow-xl backdrop-blur-md">
+                  <CardContent className="p-8">
+                    <p className="text-sm uppercase tracking-[0.22em] text-[#ff8a8c]">
+                      {t.executive.eyebrow}
+                    </p>
+                    <h3 className="mt-4 text-2xl font-semibold leading-tight tracking-tight text-white lg:text-[2rem]">
+                      {t.executive.title}
+                    </h3>
+                    <p className="mt-6 text-[15px] leading-9 text-white/70">
+                      {t.executive.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
 
-              <Card className="relative overflow-hidden rounded-[24px] border-white/6 bg-white/[0.045] shadow-xl backdrop-blur-md">
-                <AccentLine />
-                <CardContent className="p-8">
-                  <p className="text-sm uppercase tracking-[0.22em] text-[#ff8a8c]">
-                    {t.executive.eyebrow}
-                  </p>
-                  <h3 className="mt-3 text-xl font-semibold tracking-tight lg:text-2xl">
-                    {t.executive.title}
-                  </h3>
-                  <p className="mt-4 text-[15px] leading-8 text-white/72 lg:text-base">
-                    {t.executive.description}
-                  </p>
-                </CardContent>
-              </Card>
-            </motion.div>
+
+            </div>
           </div>
         </section>
 
@@ -748,11 +808,10 @@ export default function TranslationallyLandingPage() {
                   transition={{ duration: 0.5, delay: idx * 0.08 }}
                 >
                   <Card
-                    className={`relative h-full overflow-hidden rounded-[24px] border-white/6 bg-white/[0.045] shadow-xl backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-white/10 hover:bg-white/[0.06] ${
-                      idx % 2 === 1
-                        ? "bg-[linear-gradient(135deg,rgba(255,255,255,0.03),rgba(239,77,79,0.03),rgba(255,255,255,0.02))]"
-                        : ""
-                    }`}
+                    className={`relative h-full overflow-hidden rounded-[24px] border-white/6 bg-white/[0.045] shadow-xl backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-white/10 hover:bg-white/[0.06] ${idx % 2 === 1
+                      ? "bg-[linear-gradient(135deg,rgba(255,255,255,0.03),rgba(239,77,79,0.03),rgba(255,255,255,0.02))]"
+                      : ""
+                      }`}
                   >
                     <AccentLine />
                     <CardContent className="p-6">
@@ -881,7 +940,84 @@ export default function TranslationallyLandingPage() {
             </Card>
           </motion.div>
         </section>
+        <section id="faq" className="mx-auto w-full max-w-[1400px] px-5 py-12 lg:px-8 lg:py-14">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={fadeUp}
+            transition={{ duration: 0.6 }}
+            className="mb-8 max-w-3xl"
+          >
+            <p className="text-sm uppercase tracking-[0.22em] text-[#ff8a8c]">
+              {t.faq.eyebrow}
+            </p>
+            <h2 className="mt-3 text-2xl font-semibold tracking-tight lg:text-3xl">
+              {t.faq.title}
+            </h2>
+          </motion.div>
 
+          <div className="grid gap-4">
+            {t.faq.items.map((item, idx) => {
+              const isOpen = openFaqIndex === idx
+
+              return (
+                <Card
+                  key={item.question}
+                  className="relative overflow-hidden rounded-[24px] border-white/6 bg-white/[0.045] shadow-xl backdrop-blur-md"
+                >
+                  <AccentLine />
+                  <CardContent className="p-0">
+                    <button
+                      type="button"
+                      onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
+                      className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
+                    >
+                      <span className="text-base font-medium text-white">
+                        {item.question}
+                      </span>
+                      <span
+                        className={`text-xl text-[#ff8a8c] transition-transform duration-300 ${isOpen ? "rotate-45" : ""
+                          }`}
+                      >
+                        +
+                      </span>
+                    </button>
+
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.25 }}
+                          className="overflow-hidden"
+                        >
+                          <div className="px-6 pb-5 text-[15px] leading-8 text-white/70">
+                            {item.answer}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </CardContent>
+                </Card>
+              )
+            })}
+          </div>
+
+          <div className="mt-8 rounded-[24px] border border-white/6 bg-white/[0.04] p-6 text-center">
+            <p className="text-lg font-semibold text-white">
+              {locale === "es"
+                ? "Más que traducción: conectamos personas, culturas y experiencias."
+                : "More than translation—we bridge people, cultures, and experiences."}
+            </p>
+            <p className="mt-2 text-sm text-white/60">
+              {locale === "es"
+                ? "Tu aliado confiable en idiomas y logística."
+                : "Your trusted allies in language and logistics."}
+            </p>
+          </div>
+        </section>
         <section id="contact" className="border-t border-white/5 bg-white/[0.02]">
           <div className="mx-auto w-full max-w-[1400px] px-5 py-12 lg:px-8 lg:py-14">
             <div className="grid gap-6 lg:grid-cols-[minmax(320px,0.92fr)_minmax(0,1.08fr)] xl:gap-8">
