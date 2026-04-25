@@ -494,7 +494,7 @@ export default function TranslationallyLandingPage() {
   const [locale, setLocale] = useState<Locale>("es")
   const [wordIndex, setWordIndex] = useState(0)
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0)
-  const [isScrolled, setIsScrolled] = useState(false)
+  const [isScrolled] = useState(false)
 
   const t = content[locale]
   const rotatingWords = useMemo(() => t.hero.rotating, [t.hero.rotating])
