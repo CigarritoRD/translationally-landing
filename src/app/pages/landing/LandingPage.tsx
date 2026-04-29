@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react"
+import emailjs from "@emailjs/browser"
 import { AnimatePresence, motion } from "framer-motion"
 import {
   ArrowRight,
@@ -6,7 +7,9 @@ import {
   Mail,
   MessageCircle,
   ShieldCheck,
-
+  Menu,
+  X,
+  ChevronDown,
   Users2,
   FileText,
   Building2,
@@ -162,6 +165,24 @@ const content = {
         "Nos especializamos particularmente en organizaciones sin fines de lucro, brindando soluciones profesionales y puntuales. Nos comprometemos a ofrecer un servicio eficaz y asequible, diseñado para satisfacer las necesidades específicas de nuestros clientes.",
     },
     story: {
+      ourStory: {
+        eyebrow: "Nuestra historia",
+        title: "Conectamos culturas a través del poder de las palabras",
+        intro:
+          "En TranslationAlly conectamos culturas a través del poder de las palabras. Nos especializamos en servicios de traducción para organizaciones que buscan comunicar su mensaje con claridad, precisión y propósito.",
+        body: [
+          "TranslationAlly nació de una verdad sencilla pero poderosa: el idioma nunca debe ser una barrera para la conexión, especialmente cuando se trata de relaciones significativas y centradas en la fe. Lo que comenzó como una visión compartida entre tres mujeres con fortalezas complementarias —finanzas, comunicación y operaciones— pronto se convirtió en algo mucho más profundo: una misión.",
+          "Unidas por su amor al Señor y su corazón de servicio, las fundadoras de TranslationAlly ya habían dedicado años a servir en comunidades cristianas, ONGs y organizaciones con propósito misional.",
+          "Lea y Katerine, traductoras desde que tienen memoria, siempre habían sentido pasión por usar ese don para servir a otros, especialmente a los niños. Con el tiempo, distintas organizaciones comenzaron a contactarlas individualmente para solicitar apoyo en traducción. Lo que inició como oportunidades independientes reveló algo mayor: una necesidad clara y un llamado a construir algo juntas.",
+          "Como amigas cercanas y compañeras de ministerio, Lea compartió con Katerine la visión de formalizar su trabajo y crear una empresa que pudiera servir con excelencia y propósito. Y con confianza dijo: “Si se lo decimos a Zoila, sabemos que está hecho”. Así lo hicieron, y tres días después todo estaba oficialmente en marcha.",
+          "El nombre TranslationAlly nació de una idea simple pero significativa: durante años, ellas habían servido como aliadas confiables para organizaciones respetadas, tanto a nivel local como internacional. Convertirse en una “aliada” a través del idioma era la expresión más natural de quiénes eran y de lo que ya venían haciendo.",
+          "El 10 de marzo de 2025, TranslationAlly se hizo oficial. Desde entonces, la empresa ha continuado creciendo, construyendo alianzas significativas y sirviendo a organizaciones como Compassion International, Food for the Hungry, Edify y Global Trust Partners (GTP).",
+          "En TranslationAlly no vemos lo que hacemos simplemente como un trabajo. Lo vemos como un servicio para el Señor. Cada carta traducida y cada mensaje entregado son una oportunidad para devolver de lo que Él nos ha dado tan generosamente.",
+          "Hoy, TranslationAlly continúa creciendo, pero su fundamento sigue siendo el mismo: servir como un puente fiel entre idiomas, culturas y corazones, entregando cada mensaje con claridad, cuidado y propósito.",
+        ],
+        readMore: "Leer más",
+        readLess: "Leer menos",
+      },
       eyebrow: "Visión y experiencia",
       title: "TranslationAlly es el resultado de años de preparación y esfuerzo",
       description:
@@ -351,6 +372,24 @@ const content = {
         "We specialize particularly in nonprofit organizations, providing professional and timely solutions. We are committed to offering effective and affordable service designed to meet the specific needs of our clients.",
     },
     story: {
+      ourStory: {
+        eyebrow: "Our Story",
+        title: "We connect cultures through the power of words",
+        intro:
+          "At TranslationAlly, we connect cultures through the power of words. We specialize in translation services for organizations that seek to communicate their message with clarity, accuracy, and purpose.",
+        body: [
+          "TranslationAlly was born out of a simple yet powerful realization: language should never be a barrier to connection—especially when it comes to meaningful, faith-centered relationships. What began as a shared vision among three women with complementary strengths—finance, communication, and operations—quickly became something much deeper: a mission.",
+          "United by their love for the Lord and a heart for service, the founders of TranslationAlly had already spent years serving in Christian communities, NGOs, and mission-driven organizations.",
+          "Lea and Katerine, both translators for as long as they can remember, had long been passionate about using their gift to serve others—especially children. Over time, different organizations began reaching out to them individually, requesting translation support for their work. What started as independent opportunities soon revealed something greater: a clear need, and a calling to build something together.",
+          "As close friends and ministry partners, Lea shared the vision with Katerine to formalize their work and create a company that could serve with excellence and purpose. And with confidence, she said: “If we tell Zoila, we know it’s done.” They did—and three days later, everything was officially in motion.",
+          "The name TranslationAlly was born from a simple but meaningful idea: throughout the years, they had served as trusted allies to respected organizations—both locally and internationally. Becoming an “ally” through language felt like the most natural expression of who they were and what they had already been doing.",
+          "On March 10, 2025, TranslationAlly became official. Since then, the company has continued to grow, building meaningful partnerships and serving organizations such as Compassion International, Food for the Hungry, Edify, and Global Trust Partners (GTP).",
+          "At TranslationAlly, we do not see what we do as just a job. We see it as service unto the Lord. Every letter translated, every message delivered, is an opportunity to give back from what He has so generously given to us.",
+          "Today, TranslationAlly continues to grow, but its foundation remains the same: to serve as a faithful bridge between languages, cultures, and hearts—delivering every message with clarity, care, and purpose.",
+        ],
+        readMore: "Read more",
+        readLess: "Read less",
+      },
       eyebrow: "Vision and experience",
       title: "TranslationAlly is the result of years of preparation and effort",
       description:
@@ -495,9 +534,19 @@ export default function TranslationallyLandingPage() {
   const [wordIndex, setWordIndex] = useState(0)
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0)
   const [isScrolled] = useState(false)
-
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [storyExpanded, setStoryExpanded] = useState(false)
   const t = content[locale]
   const rotatingWords = useMemo(() => t.hero.rotating, [t.hero.rotating])
+  const [contactForm, setContactForm] = useState({
+    name: "",
+    email: "",
+    company: "",
+    message: "",
+  })
+
+  const [isSending, setIsSending] = useState(false)
+  const [sendStatus, setSendStatus] = useState<"idle" | "success" | "error">("idle")
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -508,7 +557,7 @@ export default function TranslationallyLandingPage() {
   }, [rotatingWords])
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+
     setWordIndex(0)
   }, [locale])
 
@@ -518,6 +567,43 @@ export default function TranslationallyLandingPage() {
     bioText: founder.bio[locale],
   }))
 
+  async function handleContactSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    setIsSending(true)
+    setSendStatus("idle")
+
+    try {
+      await emailjs.send(
+        "service_5mkx3lj",
+        "template_4bqfc1x",
+        {
+
+          name: contactForm.name,
+          email: contactForm.email,
+          company: contactForm.company,
+          message: contactForm.message,
+        },
+        {
+          publicKey: "_CrVHSWWvB0a3eKbI",
+        }
+      )
+
+      setSendStatus("success")
+      setContactForm({
+        name: "",
+        email: "",
+        company: "",
+        message: "",
+      })
+    } catch (error) {
+      console.error(error)
+      setSendStatus("error")
+    } finally {
+      setIsSending(false)
+    }
+  }
+  const coralButtonClass =
+    "group relative overflow-hidden rounded-full border border-[#ef4d4f]/30 bg-[#ef4d4f] text-white shadow-[0_10px_30px_rgba(239,77,79,0.25)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#e5484b] hover:shadow-[0_18px_45px_rgba(239,77,79,0.38)] before:absolute before:inset-0 before:-translate-x-full before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent before:transition-transform before:duration-700 hover:before:translate-x-full"
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#071b2d] text-white">
       <div className="fixed inset-0 -z-10 overflow-hidden">
@@ -537,26 +623,22 @@ export default function TranslationallyLandingPage() {
           }`}
       >
         <div className="mx-auto flex w-full max-w-[1400px] items-center justify-between px-5 py-4 lg:px-8">
-          <div className="flex items-center gap-3">
-            <img src={logoUrl} alt="TranslationAlly logo" className="h-11 w-auto" />
-          </div>
+          <a href="#" className="flex items-center gap-3">
+            <img
+              src={logoUrl}
+              alt="TranslationAlly logo"
+              className="h-10 w-auto max-w-[170px] object-contain sm:h-11"
+            />
+          </a>
 
           <nav className="hidden items-center gap-5 text-[15px] text-white/74 lg:flex">
-            <a href="#about" className="transition hover:text-white">
-              {t.nav.about}
-            </a>
-            <a href="#services" className="transition hover:text-white">
-              {t.nav.services}
-            </a>
-            <a href="#founders" className="transition hover:text-white">
-              {t.nav.founders}
-            </a>
-            <a href="#contact" className="transition hover:text-white">
-              {t.nav.contact}
-            </a>
+            <a href="#about" className="transition hover:text-white">{t.nav.about}</a>
+            <a href="#services" className="transition hover:text-white">{t.nav.services}</a>
+            <a href="#founders" className="transition hover:text-white">{t.nav.founders}</a>
+            <a href="#contact" className="transition hover:text-white">{t.nav.contact}</a>
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="hidden items-center gap-3 lg:flex">
             <button
               type="button"
               onClick={() => setLocale((prev) => (prev === "es" ? "en" : "es"))}
@@ -569,19 +651,81 @@ export default function TranslationallyLandingPage() {
             <Button
               asChild
               variant="outline"
-              className="hidden rounded-full border-white/10 bg-white/4 text-white hover:bg-white/8 md:inline-flex"
+              className="rounded-full border-white/10 bg-white/4 text-white hover:bg-white/8"
             >
               <a href="/login">{t.nav.platform}</a>
             </Button>
 
-            <Button
-              asChild
-              className="rounded-full border border-[#ef4d4f]/20 bg-[#ef4d4f] text-white shadow-[0_10px_30px_rgba(239,77,79,0.22)] hover:bg-[#e5484b]"
-            >
+            <Button asChild className={coralButtonClass}>
               <a href="#contact">{t.nav.request}</a>
             </Button>
           </div>
+
+          <div className="flex items-center gap-2 lg:hidden">
+            <button
+              type="button"
+              onClick={() => setLocale((prev) => (prev === "es" ? "en" : "es"))}
+              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/4 px-3 py-2 text-sm text-white"
+            >
+              <Languages className="h-4 w-4" />
+              {locale === "es" ? "EN" : "ES"}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen((prev) => !prev)}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/4 text-white"
+              aria-label="Open menu"
+            >
+              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+          </div>
         </div>
+
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.25 }}
+              className="overflow-hidden border-t border-white/6 bg-[#071b2d]/96 lg:hidden"
+            >
+              <nav className="mx-auto grid w-full max-w-[1400px] gap-2 px-5 py-5 text-white/80">
+                {[
+                  { href: "#about", label: t.nav.about },
+                  { href: "#services", label: t.nav.services },
+                  { href: "#founders", label: t.nav.founders },
+                  { href: "#contact", label: t.nav.contact },
+                ].map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="rounded-2xl border border-white/6 bg-white/[0.035] px-4 py-3 transition hover:bg-white/[0.06] hover:text-white"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+
+                <a
+                  href="/login"
+                  className="mt-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-center text-white"
+                >
+                  {t.nav.platform}
+                </a>
+
+                <a
+                  href="#contact"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="rounded-2xl bg-[#ef4d4f] px-4 py-3 text-center font-medium text-white"
+                >
+                  {t.nav.request}
+                </a>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
       <main className="pt-24">
@@ -621,7 +765,7 @@ export default function TranslationallyLandingPage() {
               <Button
                 asChild
                 size="lg"
-                className="rounded-full border border-[#ef4d4f]/20 bg-[#ef4d4f] px-7 text-white shadow-[0_10px_30px_rgba(239,77,79,0.25)] hover:bg-[#e5484b]"
+                className={coralButtonClass}
               >
                 <a href="#contact">
                   {t.hero.primaryCta}
@@ -773,6 +917,64 @@ export default function TranslationallyLandingPage() {
 
             </div>
           </div>
+        </section>
+        <section className="mx-auto w-full max-w-[1400px] px-5 py-12 lg:px-8 lg:py-14">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={fadeUp}
+            transition={{ duration: 0.6 }}
+          >
+            <Card className="relative overflow-hidden rounded-[30px] border-white/6 bg-[linear-gradient(135deg,rgba(255,255,255,0.045),rgba(239,77,79,0.035),rgba(255,255,255,0.02))] shadow-2xl backdrop-blur-xl">
+              <AccentLine />
+              <CardContent className="p-8 lg:p-10">
+                <div className="max-w-4xl">
+                  <p className="text-sm uppercase tracking-[0.22em] text-[#ff8a8c]">
+                    {t.story.ourStory.eyebrow}
+                  </p>
+
+                  <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white lg:text-4xl">
+                    {t.story.ourStory.title}
+                  </h2>
+
+                  <p className="mt-6 text-[16px] leading-9 text-white/74">
+                    {t.story.ourStory.intro}
+                  </p>
+                </div>
+
+                <AnimatePresence initial={false}>
+                  {storyExpanded && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.35 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="mt-6 grid gap-5 text-[15px] leading-8 text-white/70 lg:max-w-5xl">
+                        {t.story.ourStory.body.map((paragraph) => (
+                          <p key={paragraph}>{paragraph}</p>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                <Button
+                  type="button"
+                  onClick={() => setStoryExpanded((prev) => !prev)}
+                  className={`${coralButtonClass} mt-8 px-6`}
+                >
+                  {storyExpanded ? t.story.ourStory.readLess : t.story.ourStory.readMore}
+                  <ChevronDown
+                    className={`ml-2 h-4 w-4 transition-transform duration-300 ${storyExpanded ? "rotate-180" : ""
+                      }`}
+                  />
+                </Button>
+              </CardContent>
+            </Card>
+          </motion.div>
         </section>
 
         <section className="mx-auto w-full max-w-[1400px] px-5 py-12 lg:px-8 lg:py-14" id="services">
@@ -928,11 +1130,16 @@ export default function TranslationallyLandingPage() {
                   <Button
                     asChild
                     size="lg"
-                    className="rounded-full border border-white/10 bg-white text-[#071b2d] hover:bg-white/90"
+                    className="group relative overflow-hidden rounded-full border border-white/10 bg-white text-[#071b2d] px-7 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_35px_rgba(0,0,0,0.25)]"
                   >
                     <a href="/login">
-                      {t.platform.cta}
-                      <ArrowRight className="ml-2 h-4 w-4" />
+                      <span className="relative z-10 flex items-center">
+                        {t.platform.cta}
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </span>
+
+                      {/* efecto shine coral */}
+                      <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-[#ef4d4f]/30 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
                     </a>
                   </Button>
                 </div>
@@ -1101,47 +1308,64 @@ export default function TranslationallyLandingPage() {
                       </h3>
                     </div>
 
-                    <form className="grid gap-4">
+                    <form onSubmit={handleContactSubmit} className="grid gap-4">
                       <div className="grid gap-4 md:grid-cols-2">
                         <Input
                           placeholder={t.contact.name}
+                          value={contactForm.name}
+                          onChange={(e) =>
+                            setContactForm((prev) => ({ ...prev, name: e.target.value }))
+                          }
                           className="h-12 rounded-2xl border-white/8 bg-white/4 text-white placeholder:text-white/35"
                         />
                         <Input
                           type="email"
                           placeholder={t.contact.email}
+                          value={contactForm.email}
+                          onChange={(e) =>
+                            setContactForm((prev) => ({ ...prev, email: e.target.value }))
+                          }
                           className="h-12 rounded-2xl border-white/8 bg-white/4 text-white placeholder:text-white/35"
                         />
                       </div>
 
                       <Input
                         placeholder={t.contact.company}
+                        value={contactForm.company}
+                        onChange={(e) =>
+                          setContactForm((prev) => ({ ...prev, company: e.target.value }))
+                        }
                         className="h-12 rounded-2xl border-white/8 bg-white/4 text-white placeholder:text-white/35"
                       />
 
                       <Textarea
                         placeholder={t.contact.message}
+                        value={contactForm.message}
+                        onChange={(e) =>
+                          setContactForm((prev) => ({ ...prev, message: e.target.value }))
+                        }
                         className="min-h-[160px] rounded-2xl border-white/8 bg-white/4 text-white placeholder:text-white/35"
                       />
 
                       <div className="flex flex-col gap-3 sm:flex-row">
                         <Button
                           type="submit"
-                          className="rounded-full border border-[#ef4d4f]/20 bg-[#ef4d4f] px-6 text-white shadow-[0_10px_30px_rgba(239,77,79,0.22)] hover:bg-[#e5484b]"
+                          disabled={isSending}
+                          className={`${coralButtonClass} px-6 disabled:cursor-not-allowed disabled:opacity-60`}
                         >
-                          {t.contact.submit}
+                          {isSending
+                            ? locale === "es"
+                              ? "Enviando..."
+                              : "Sending..."
+                            : t.contact.submit}
                         </Button>
-
-                        <Button
-                          asChild
-                          type="button"
-                          variant="outline"
-                          className="rounded-full border-white/10 bg-white/4 px-6 text-white hover:bg-white/8"
-                        >
-                          <a href={whatsappUrl} target="_blank" rel="noreferrer">
-                            {t.contact.whatsappButton}
-                          </a>
-                        </Button>
+                        {sendStatus === "success" && (
+                          <div className="mt-3 rounded-xl border border-green-400/20 bg-green-400/10 p-3 text-sm text-green-300">
+                            {locale === "es"
+                              ? "✔️ Solicitud enviada correctamente"
+                              : "✔️ Request sent successfully"}
+                          </div>
+                        )}
                       </div>
                     </form>
                   </CardContent>
