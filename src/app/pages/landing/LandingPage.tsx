@@ -778,7 +778,7 @@ export default function TranslationallyLandingPage() {
                 variant="outline"
                 className="rounded-full border-white/10 bg-white/4 px-7 text-white hover:bg-white/8"
               >
-                <a href="/login">{t.hero.secondaryCta}</a>
+                <a href="https://portal.translationally.net">{t.hero.secondaryCta}</a>
               </Button>
             </div>
 
