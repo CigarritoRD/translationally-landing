@@ -23,10 +23,9 @@ import { Textarea } from "@/components/ui/textarea"
 
 type Locale = "es" | "en"
 
-const logoUrl =
-  "https://translationally-five.vercel.app/assets/logo-DsmuveuX.png"
+const logoUrl ="https://translationally-five.vercel.app/assets/logo-DsmuveuX.png"
 
-const whatsappUrl = "https://wa.me/18090000000"
+const whatsappUrl ="https://wa.me/18092808220?text=Hola,%20quiero%20información%20sobre%20los%20servicios%20de%20TranslationAlly"
 const emailAddress = "Info@translationally.net"
 
 const fadeUp = {
