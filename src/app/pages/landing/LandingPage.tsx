@@ -652,7 +652,7 @@ export default function TranslationallyLandingPage() {
               variant="outline"
               className="rounded-full border-white/10 bg-white/4 text-white hover:bg-white/8"
             >
-              <a href="/login">{t.nav.platform}</a>
+              <a href="https://portal.translationally.net">{t.nav.platform}</a>
             </Button>
 
             <Button asChild className={coralButtonClass}>
@@ -708,7 +708,7 @@ export default function TranslationallyLandingPage() {
                 ))}
 
                 <a
-                  href="/login"
+                  href="https://portal.translationally.net"
                   className="mt-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-center text-white"
                 >
                   {t.nav.platform}
@@ -1131,7 +1131,7 @@ export default function TranslationallyLandingPage() {
                     size="lg"
                     className="group relative overflow-hidden rounded-full border border-white/10 bg-white text-[#071b2d] px-7 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_35px_rgba(0,0,0,0.25)]"
                   >
-                    <a href="/login">
+                    <a href="https://portal.translationally.net">
                       <span className="relative z-10 flex items-center">
                         {t.platform.cta}
                         <ArrowRight className="ml-2 h-4 w-4" />
@@ -1388,7 +1388,7 @@ export default function TranslationallyLandingPage() {
             <a href="#contact" className="transition hover:text-white">
               {t.nav.contact}
             </a>
-            <a href="/login" className="transition hover:text-white">
+            <a href="https://portal.translationally.net" className="transition hover:text-white">
               {t.footer.platform}
             </a>
           </div>
