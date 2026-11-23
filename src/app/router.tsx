@@ -1,14 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom'
-import TranslationallyLandingPage from './pages/landing/LandingPage'
-
-
-
-
+import { PublicSite } from './PublicSite'
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <TranslationallyLandingPage />,
+    element: <PublicSite />,
   },
-
 ])
