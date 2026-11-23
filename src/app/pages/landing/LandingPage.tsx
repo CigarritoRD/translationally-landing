@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useState } from "react"
 import { Link } from 'react-router-dom'
 import emailjs from "@emailjs/browser"
 import { AnimatePresence, motion } from "framer-motion"
@@ -11,11 +11,8 @@ import {
   Menu,
   X,
   ChevronDown,
-  Users2,
   FileText,
   Building2,
-  BadgeCheck,
-  Clock3,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -23,6 +20,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { legalContent, legalHref, legalIds } from '../legal/legalContent'
 import type { Locale } from '../legal/legalContent'
+import { LandingHero } from "./LandingHero"
 
 const logoUrl ="https://translationally-five.vercel.app/assets/logo-DsmuveuX.png"
 
@@ -124,39 +122,19 @@ const content = {
       request: "Solicitar servicios",
     },
     hero: {
-      badge: "Aliado lingüístico y logístico con una experiencia moderna y confiable",
       before: "Aliado lingüístico y logístico con enfoque",
       rotating: ["claro", "preciso", "confiable", "humano"],
       after: "",
       description:
         "Somos una empresa orientada a ofrecer servicios de alta calidad a una amplia variedad de públicos, con especial enfoque en organizaciones sin fines de lucro. Brindamos soluciones profesionales, puntuales, eficaces y asequibles, diseñadas para responder a las necesidades específicas de cada cliente.",
       primaryCta: "Solicitar servicios",
-      secondaryCta: "Acceder a la plataforma de traducción",
-      stats: [
-        { label: "Enfoque", value: "Rigor" },
-        { label: "Proceso", value: "Eficiente" },
-        { label: "Atención", value: "Humana" },
-        { label: "Entrega", value: "Confiable" },
-      ],
-      panelTitle: "Aliado en soluciones lingüísticas",
-      panelBadge: "Flujo moderno",
-      panelItems: [
-        {
-          icon: BadgeCheck,
-          title: "Metodología estructurada",
-          text: "Metodología clara y organizada desde la recepción hasta la entrega final.",
-        },
-        {
-          icon: Clock3,
-          title: "Cumplimiento de plazos",
-          text: "Gestión eficiente orientada al cumplimiento puntual y consistente.",
-        },
-        {
-          icon: Users2,
-          title: "Equipo humano",
-          text: "Profesionales comprometidos con estándares de excelencia.",
-        },
-      ],
+      secondaryCta: "Ir al portal",
+      stats: {
+        focus: { label: "Enfoque", value: "Rigor" },
+        process: { label: "Proceso", value: "Eficiente" },
+        care: { label: "Atención", value: "Humana" },
+        delivery: { label: "Entrega", value: "Confiable" },
+      },
     },
     about: {
       eyebrow: "Quiénes somos",
@@ -331,39 +309,19 @@ const content = {
       request: "Request services",
     },
     hero: {
-      badge: "A linguistic and logistics ally with a modern and reliable experience",
       before: "A linguistic and logistics ally with a",
       rotating: ["clear", "precise", "reliable", "human"],
       after: " approach",
       description:
         "We are a company committed to providing high-quality services to a wide range of audiences, with a special focus on nonprofit organizations. We provide professional, timely, effective, and affordable solutions designed to meet each client’s specific needs.",
       primaryCta: "Request services",
-      secondaryCta: "Access the translation platform",
-      stats: [
-        { label: "Focus", value: "Rigor" },
-        { label: "Process", value: "Efficient" },
-        { label: "Care", value: "Human" },
-        { label: "Delivery", value: "Reliable" },
-      ],
-      panelTitle: "Ally in language solutions",
-      panelBadge: "Modern workflow",
-      panelItems: [
-        {
-          icon: BadgeCheck,
-          title: "Structured methodology",
-          text: "A clear and organized methodology from intake to final delivery.",
-        },
-        {
-          icon: Clock3,
-          title: "Deadline commitment",
-          text: "Efficient management focused on timely and consistent delivery.",
-        },
-        {
-          icon: Users2,
-          title: "Human team",
-          text: "Professionals committed to standards of excellence.",
-        },
-      ],
+      secondaryCta: "Go to portal",
+      stats: {
+        focus: { label: "Focus", value: "Rigor" },
+        process: { label: "Process", value: "Efficient" },
+        care: { label: "Care", value: "Human" },
+        delivery: { label: "Delivery", value: "Reliable" },
+      },
     },
     about: {
       eyebrow: "About us",
@@ -531,13 +489,11 @@ const content = {
 
 export default function TranslationallyLandingPage({ initialLocale = 'es' }: { initialLocale?: Locale }) {
   const [locale, setLocale] = useState<Locale>(initialLocale)
-  const [wordIndex, setWordIndex] = useState(0)
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0)
   const [isScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [storyExpanded, setStoryExpanded] = useState(false)
   const t = content[locale]
-  const rotatingWords = useMemo(() => t.hero.rotating, [t.hero.rotating])
   const [contactForm, setContactForm] = useState({
     name: "",
     email: "",
@@ -549,16 +505,7 @@ export default function TranslationallyLandingPage({ initialLocale = 'es' }: { i
   const [sendStatus, setSendStatus] = useState<"idle" | "success" | "error">("idle")
 
   useEffect(() => {
-    const interval = window.setInterval(() => {
-      setWordIndex((prev) => (prev + 1) % rotatingWords.length)
-    }, 2200)
-
-    return () => window.clearInterval(interval)
-  }, [rotatingWords])
-
-  useEffect(() => {
     document.documentElement.lang = locale
-    setWordIndex(0)
   }, [locale])
 
   const localizedFounders = founders.map((founder) => ({
@@ -604,8 +551,10 @@ export default function TranslationallyLandingPage({ initialLocale = 'es' }: { i
   }
   const coralButtonClass =
     "group relative overflow-hidden rounded-full border border-[#ef4d4f]/30 bg-[#ef4d4f] text-white shadow-[0_10px_30px_rgba(239,77,79,0.25)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#e5484b] hover:shadow-[0_18px_45px_rgba(239,77,79,0.38)] before:absolute before:inset-0 before:-translate-x-full before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent before:transition-transform before:duration-700 hover:before:translate-x-full"
+  const portalLinkClass =
+    "inline-flex min-h-11 items-center justify-center rounded-sm px-2 text-sm font-medium text-[#bfccd7] underline-offset-4 hover:text-white hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff7a7c]"
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#071b2d] text-white">
+    <div className="min-h-screen overflow-x-hidden bg-[#071b2d] text-white [--landing-header-height:4.8125rem]">
       <div className="fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(239,77,79,0.16),transparent_34%),radial-gradient(circle_at_82%_18%,rgba(255,255,255,0.05),transparent_20%),linear-gradient(180deg,#071729_0%,#071b2d_48%,#06131f_100%)]" />
         <div className="absolute left-[-8%] top-20 h-72 w-72 rounded-full bg-[#ef4d4f]/10 blur-3xl" />
@@ -617,12 +566,12 @@ export default function TranslationallyLandingPage({ initialLocale = 'es' }: { i
       </div>
 
       <header
-        className={`fixed inset-x-0 top-0 z-50 border-b border-white/6 backdrop-blur-2xl transition-all duration-300 ${isScrolled
+        className={`fixed inset-x-0 top-0 z-50 border-b border-white/6 backdrop-blur-2xl transition-all duration-300 lg:h-[var(--landing-header-height)] ${isScrolled
           ? "bg-[#071b2d]/88 shadow-[0_10px_40px_rgba(0,0,0,0.28)]"
           : "bg-[#071b2d]/70"
           }`}
       >
-        <div className="mx-auto flex w-full max-w-[1400px] items-center justify-between px-5 py-4 lg:px-8">
+        <div className="mx-auto flex w-full max-w-[1400px] items-center justify-between px-5 py-4 lg:h-full lg:px-8 lg:py-0">
           <a href="#" className="flex items-center gap-3">
             <img
               src={logoUrl}
@@ -648,13 +597,9 @@ export default function TranslationallyLandingPage({ initialLocale = 'es' }: { i
               {locale === "es" ? "EN" : "ES"}
             </button>
 
-            <Button
-              asChild
-              variant="outline"
-              className="rounded-full border-white/10 bg-white/4 text-white hover:bg-white/8"
-            >
-              <a href="https://portal.translationally.net">{t.nav.platform}</a>
-            </Button>
+            <a href="https://portal.translationally.net" className={portalLinkClass}>
+              {t.nav.platform}
+            </a>
 
             <Button asChild className={coralButtonClass}>
               <a href="#contact">{t.nav.request}</a>
@@ -710,7 +655,7 @@ export default function TranslationallyLandingPage({ initialLocale = 'es' }: { i
 
                 <a
                   href="https://portal.translationally.net"
-                  className="mt-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-center text-white"
+                  className={`mt-2 ${portalLinkClass}`}
                 >
                   {t.nav.platform}
                 </a>
@@ -728,140 +673,8 @@ export default function TranslationallyLandingPage({ initialLocale = 'es' }: { i
         </AnimatePresence>
       </header>
 
-      <main className="pt-24">
-        <section className="mx-auto grid w-full max-w-[1400px] items-center gap-12 px-5 py-20 lg:grid-cols-[1fr_0.95fr] lg:px-8 lg:py-28 xl:gap-16">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            transition={{ duration: 0.6 }}
-            className="max-w-3xl"
-          >
-
-            <h1 className="max-w-3xl text-3xl font-semibold leading-[1.05] tracking-tight sm:text-4xl lg:text-5xl xl:text-[4.2rem]">
-              {t.hero.before}{" "}
-              <span className="inline-block min-w-[185px] align-baseline text-[#ff7a7c] sm:min-w-[215px] lg:min-w-[260px]">
-                <AnimatePresence mode="wait">
-                  <motion.span
-                    key={rotatingWords[wordIndex]}
-                    initial={{ opacity: 0, y: 12, filter: "blur(6px)" }}
-                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, y: -10, filter: "blur(6px)" }}
-                    transition={{ duration: 0.35 }}
-                    className="inline-block"
-                  >
-                    {rotatingWords[wordIndex]}
-                  </motion.span>
-                </AnimatePresence>
-              </span>
-              {t.hero.after}
-            </h1>
-
-            <p className="mt-6 max-w-2xl text-base leading-8 text-white/68 lg:text-lg">
-              {t.hero.description}
-            </p>
-
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button
-                asChild
-                size="lg"
-                className={coralButtonClass}
-              >
-                <a href="#contact">
-                  {t.hero.primaryCta}
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </a>
-              </Button>
-
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="rounded-full border-white/10 bg-white/4 px-7 text-white hover:bg-white/8"
-              >
-                <a href="https://portal.translationally.net">{t.hero.secondaryCta}</a>
-              </Button>
-            </div>
-
-            <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
-              {t.hero.stats.map((item, idx) => (
-                <motion.div
-                  key={item.label}
-                  initial={{ opacity: 0, y: 18 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.15 + idx * 0.08, duration: 0.5 }}
-                  className="relative overflow-hidden rounded-2xl border border-white/6 bg-white/4 p-4 backdrop-blur-md"
-                >
-                  <AccentLine />
-                  <p className="text-xs uppercase tracking-[0.18em] text-white/42">
-                    {item.label}
-                  </p>
-                  <p className="mt-2 text-lg font-semibold text-white lg:text-xl">
-                    {item.value}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="relative"
-          >
-            <div className="absolute -left-6 -top-6 h-28 w-28 rounded-full bg-[#ef4d4f]/18 blur-3xl" />
-            <div className="absolute -bottom-6 right-0 h-28 w-28 rounded-full bg-white/7 blur-3xl" />
-
-            <Card className="relative overflow-hidden rounded-[28px] border-white/6 bg-white/[0.045] shadow-2xl backdrop-blur-xl">
-              <AccentLine />
-              <CardContent className="p-0">
-                <div className="border-b border-white/6 bg-[linear-gradient(135deg,rgba(239,77,79,0.14),rgba(255,255,255,0.03),rgba(255,255,255,0.015))] p-5 lg:p-6">
-                  <div className="flex items-center justify-between gap-3">
-                    <div>
-                      <p className="text-sm uppercase tracking-[0.24em] text-white/42">
-                        TranslationAlly
-                      </p>
-                      <h2 className="mt-2 text-xl font-semibold lg:text-2xl">
-                        {t.hero.panelTitle}
-                      </h2>
-                    </div>
-                    <div className="rounded-full border border-white/8 bg-white/8 px-3 py-1 text-xs text-white/72">
-                      {t.hero.panelBadge}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="grid gap-4 p-5 lg:p-6">
-                  {t.hero.panelItems.map((item, idx) => {
-                    const Icon = item.icon
-                    return (
-                      <div
-                        key={item.title}
-                        className={`rounded-2xl border border-white/6 p-4 transition hover:border-white/10 hover:bg-white/[0.05] ${idx === 1
-                          ? "bg-[linear-gradient(135deg,rgba(255,255,255,0.02),rgba(239,77,79,0.035),rgba(255,255,255,0.01))]"
-                          : "bg-black/10"
-                          }`}
-                      >
-                        <div className="flex items-start gap-4">
-                          <div className="mt-0.5 flex h-11 w-11 items-center justify-center rounded-2xl border border-white/6 bg-white/4">
-                            <Icon className="h-5 w-5 text-[#ff7a7c]" />
-                          </div>
-                          <div>
-                            <p className="font-medium text-white">{item.title}</p>
-                            <p className="mt-1 text-[15px] leading-7 text-white/62">
-                              {item.text}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        </section>
+      <main className="pt-24 lg:pt-[var(--landing-header-height)]">
+        <LandingHero copy={t.hero} locale={locale} primaryButtonClassName={coralButtonClass} />
 
         <section id="about" className="border-y border-white/5 bg-white/[0.025]">
           <div className="mx-auto w-full max-w-[1400px] px-5 py-14 lg:px-8 lg:py-16">
