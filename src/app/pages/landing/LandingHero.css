@@ -10,7 +10,7 @@
 
 @media (min-width: 64rem) {
   .landing-hero {
-    --hero-gutter: max(2rem, (100% - 83.5rem) / 2);
+    --hero-gutter: 2rem;
     grid-template-columns: var(--hero-gutter) calc((100% - 2 * var(--hero-gutter)) * 0.45) minmax(0, 1fr);
   }
 

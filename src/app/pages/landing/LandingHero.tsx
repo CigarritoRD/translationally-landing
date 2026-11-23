@@ -184,7 +184,7 @@ export function LandingHero({ copy, locale, primaryButtonClassName }: {
   return (
     <section
       aria-labelledby="landing-hero-title"
-      className="landing-hero mx-auto grid w-full max-w-[720px] items-center px-5 pt-8 pb-9 lg:max-w-none lg:px-0 lg:pt-0"
+      className="landing-hero mx-auto grid w-full max-w-[720px] items-center px-5 pt-8 pb-9 lg:max-w-[120rem] lg:px-0 lg:pt-0"
     >
       <div className="relative z-10 min-w-0 lg:col-start-2 lg:py-8 lg:pr-5">
         <HeroHeading key={locale} copy={copy} reducedMotion={reducedMotion} />
