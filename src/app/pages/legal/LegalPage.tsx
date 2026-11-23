@@ -3,20 +3,24 @@ import { Link } from 'react-router-dom'
 import { legalContent, legalEmail, legalHref, legalIds } from './legalContent'
 import type { LegalDocumentId, Locale } from './legalContent'
 
+const effectiveDate = '2026-11-22'
+
 const copy = {
   es: {
     home: 'Volver al inicio',
     language: 'English',
     nav: 'Documentos legales',
     contact: 'Contacto legal y de privacidad',
-    draft: 'Borrador para aprobación.',
+    effectiveFrom: 'Vigente desde el',
+    date: '22 de noviembre de 2026',
   },
   en: {
     home: 'Back to home',
     language: 'Español',
     nav: 'Legal documents',
     contact: 'Legal and privacy contact',
-    draft: 'Draft for approval.',
+    effectiveFrom: 'Effective from',
+    date: 'November 22, 2026',
   },
 }
 
@@ -55,7 +59,9 @@ export function LegalPage({ id, locale }: { id: LegalDocumentId; locale: Locale 
       <main className="mx-auto max-w-4xl px-5 py-10 sm:px-8 sm:py-14">
         <p className="mb-3 text-sm font-medium text-[#ffb2b3]">Translationally, SRL</p>
         <h1 id="legal-page-title" tabIndex={-1} className="text-3xl font-semibold tracking-tight sm:text-5xl">{page.title}</h1>
-        <p className="mt-5 rounded-lg border border-[#ffb2b3]/30 bg-[#ffb2b3]/8 px-4 py-3 text-sm leading-6 text-[#ffcecf]">{labels.draft}</p>
+        <p className="mt-4 text-sm leading-6 text-white/75">
+          {labels.effectiveFrom} <time dateTime={effectiveDate}>{labels.date}</time>
+        </p>
 
         <nav aria-label={labels.nav} className="mt-6 flex flex-wrap gap-x-5 gap-y-1 border-b border-white/15 pb-4">
           {legalIds.map((documentId) => (
