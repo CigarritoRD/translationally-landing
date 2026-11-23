@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react"
+import { Link } from 'react-router-dom'
 import emailjs from "@emailjs/browser"
 import { AnimatePresence, motion } from "framer-motion"
 import {
@@ -20,8 +21,8 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-
-type Locale = "es" | "en"
+import { legalContent, legalHref, legalIds } from '../legal/legalContent'
+import type { Locale } from '../legal/legalContent'
 
 const logoUrl ="https://translationally-five.vercel.app/assets/logo-DsmuveuX.png"
 
@@ -528,8 +529,8 @@ const content = {
   },
 } as const
 
-export default function TranslationallyLandingPage() {
-  const [locale, setLocale] = useState<Locale>("es")
+export default function TranslationallyLandingPage({ initialLocale = 'es' }: { initialLocale?: Locale }) {
+  const [locale, setLocale] = useState<Locale>(initialLocale)
   const [wordIndex, setWordIndex] = useState(0)
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0)
   const [isScrolled] = useState(false)
@@ -556,7 +557,7 @@ export default function TranslationallyLandingPage() {
   }, [rotatingWords])
 
   useEffect(() => {
-
+    document.documentElement.lang = locale
     setWordIndex(0)
   }, [locale])
 
@@ -1346,6 +1347,16 @@ export default function TranslationallyLandingPage() {
                         className="min-h-[160px] rounded-2xl border-white/8 bg-white/4 text-white placeholder:text-white/35"
                       />
 
+                      <p className="text-sm leading-6 text-white/75">
+                        {locale === 'es'
+                          ? 'Usamos los datos que envías para responder y dar seguimiento a tu consulta. El formulario se procesa a través de EmailJS. Evita incluir documentos de terceros o datos sensibles. '
+                          : 'We use the information you submit to respond and follow up. The form is processed through EmailJS. Please avoid including third-party documents or sensitive data. '}
+                        <Link to={legalHref('privacidad', locale)} target="_blank" rel="noopener noreferrer" className="font-medium text-white underline underline-offset-4">
+                          {legalContent[locale].privacidad.title}
+                          <span className="sr-only">{locale === 'es' ? ' (abre en otra pestaña)' : ' (opens in a new tab)'}</span>
+                        </Link>
+                      </p>
+
                       <div className="flex flex-col gap-3 sm:flex-row">
                         <Button
                           type="submit"
@@ -1393,6 +1404,13 @@ export default function TranslationallyLandingPage() {
             </a>
           </div>
         </div>
+        <nav aria-label={locale === 'es' ? 'Documentos legales' : 'Legal documents'} className="mx-auto flex w-full max-w-[1400px] flex-wrap gap-x-5 px-5 pb-5 text-sm text-white/75 lg:px-8">
+          {legalIds.map((id) => (
+            <Link key={id} to={legalHref(id, locale)} className="inline-flex min-h-11 items-center underline underline-offset-4 hover:text-white">
+              {legalContent[locale][id].title}
+            </Link>
+          ))}
+        </nav>
       </footer>
     </div>
   )
